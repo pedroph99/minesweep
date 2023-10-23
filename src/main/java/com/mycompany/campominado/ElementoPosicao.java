@@ -21,9 +21,21 @@ public class ElementoPosicao {
         this.matrixPosition[1] = col;
     }
     public void click(){
-            if(this.isBomb ==true){
-                System.out.println("GameOver.");
-            }
+        if(this.isBomb ==true){
+            System.out.println("GameOver.");
+        }
     }
-    
+
+    public int bombAround(Field field, int row, int col){
+        int bombs = 0;
+        for(int i = row- 1; i < row+1; i++){
+            for(int j = col- 1; j < col+1; j++){
+                if (field.matrix[i][j].isBomb){
+                    System.out.println(String.format("Bomba detectada em [%d, %d]", i, j));
+                    bombs++;
+                }
+            }
+        }
+        return bombs;
+    }
 }

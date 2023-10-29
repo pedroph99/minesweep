@@ -58,7 +58,7 @@ public class Field {
                 
                 currentRandom = randomNumber.nextInt(9)+1;
                 if(currentRandom ==  1){
-                    if(this.matrix[i][w].isBomb == false){
+                    if(this.matrix[i][w].getIsBomb() == false){
                     insert_bomb(i,w);
                     bombsLeft = bombsLeft - 1;}
                     
@@ -78,7 +78,7 @@ public class Field {
     
     public void insert_bomb(int row, int col){
         System.out.println(String.format("BOMBA COLOCADA EM [%d, %d]", row,col));
-        this.matrix[row][col].isBomb = true;
+        this.matrix[row][col].setIsBomb(Boolean.TRUE);
     }
     
 }

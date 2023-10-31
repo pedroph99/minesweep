@@ -12,7 +12,7 @@ public class Field {
     int rows;
     int cols;
     int bombNumber;
-    ElementoPosicao[][] matrix;
+    Celula[][] matrix;
     
     public Field(int rows, int cols, int bombNumber){
         this.rows = rows;
@@ -21,16 +21,16 @@ public class Field {
         create_matrix(this.rows, this.cols);
     }
     private void create_matrix(int rows, int cols){
-        this.matrix = new ElementoPosicao[rows][cols];
+        this.matrix = new Celula[rows][cols];
         for(int i=0; i<rows; i++){
             
-            this.matrix[i] = new ElementoPosicao[cols];
+            this.matrix[i] = new Celula[cols];
             
         }
      
     }
     
-    public void insert_matrix(ElementoPosicao newElement, int posRow, int posCol ){
+    public void insert_matrix(Celula newElement, int posRow, int posCol ){
          System.out.println(String.format("Feito em %d %d", posRow, posCol));
          this.matrix[posRow][posCol] = newElement;
          
@@ -39,7 +39,7 @@ public class Field {
     public void fill_matrix(){
         for(int i = 0; i<this.rows; i++){
             for(int w = 0; w<this.cols; w++){
-                insert_matrix(new ElementoPosicao(false, i, w), i, w);
+                insert_matrix(new Celula(false, i, w), i, w);
             }
         }
     }

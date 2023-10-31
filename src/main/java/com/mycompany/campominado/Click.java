@@ -9,7 +9,7 @@ package com.mycompany.campominado;
  * @author Usuario
  */
 public class Click {
-    public  void click(ElementoPosicao cell, Field field){
+    public  void click(Celula cell, Field field){
         if(cell.getIsBomb()){
                 System.out.println("BOOOOOOOOOM");
             }

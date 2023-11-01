@@ -25,7 +25,5 @@ public class CampoMinado {
         clicar.click( teste_field.matrix[2][2], teste_field);
         clicar.click( teste_field.matrix[1][1], teste_field);
         
-        
-        
     }
 }

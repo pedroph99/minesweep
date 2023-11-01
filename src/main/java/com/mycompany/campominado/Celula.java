@@ -8,7 +8,7 @@ package com.mycompany.campominado;
  *
  * @author pedro
  */
-public class ElementoPosicao {
+public class Celula {
     private  Boolean isBomb;
 
     public void setIsBomb(Boolean isBomb) {
@@ -30,7 +30,7 @@ public class ElementoPosicao {
     public int bombsAround;
     private Boolean isFlagged;
     
-    public ElementoPosicao(boolean isBomb, int row, int col){
+    public Celula(boolean isBomb, int row, int col){
         this.isBomb = isBomb;
         this.matrixPosition = new int[2];
         this.matrixPosition[0] = row;

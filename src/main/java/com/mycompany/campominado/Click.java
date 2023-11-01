@@ -9,19 +9,28 @@ package com.mycompany.campominado;
  * @author Usuario
  */
 public class Click {
-    public  void click(ElementoPosicao cell, Field field){
+    public  char click(Celula cell, Field field){
         if(cell.getIsBomb()){
+            
                 System.out.println("BOOOOOOOOOM");
+                return 'b';
             }
             else{
                 if(!cell.getIsFlagged()){
+                    System.out.println(String.format("ROW: %d", cell.matrixPosition[0]));
+                    System.out.println(String.format("COL: %d", cell.matrixPosition[1]));
                     int bombas =  this.bombAround(field, cell.matrixPosition[0], cell.matrixPosition[1]);
                     System.out.println(String.format("Bomba em posição [%d,%d] possui %d bombas ao redor", cell.matrixPosition[0], cell.matrixPosition[1], bombas));
+                    return 'a';
                     }
                 else{
+                    
                     System.out.println("Position flagged");
+                    return 'f';
                 }
-    }}
+    }
+    
+    }
     
     
     private int bombAround(Field field, int row, int col){
@@ -59,7 +68,7 @@ public class Click {
             }
         }
         //check inferior left
-        if(check_inferior(row, field.rows-1)== true && check_left(row)==true){
+        if(check_inferior(row, field.rows-1)== true && check_left(col)==true){
             if(field.matrix[row+1][col-1].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto inferior esquerdo");
                 bombs++;

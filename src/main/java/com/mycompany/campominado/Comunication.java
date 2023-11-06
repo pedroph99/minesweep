@@ -15,8 +15,9 @@ public  class Comunication {
         Field teste_field = new Field(3,3,3);// create a 3x3 matrix field for debbuging porpuses
         
         
-        teste_field.fill_matrix();
-        teste_field.fill_bombs(); // Filling the Minesweeper matrix with bombs.
+        teste_field.fillMatrix();
+        teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
+        teste_field.insertBombAround(teste_field.rows, teste_field.cols);
            
        
         boolean game_over = false;

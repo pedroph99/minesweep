@@ -52,13 +52,5 @@ public class Celula {
     public Boolean getIsFlagged() {
         return isFlagged;
     }
-    
-    
-    
-    
-    
-    
-   
-    
-    
+
 }

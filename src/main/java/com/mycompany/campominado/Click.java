@@ -37,7 +37,7 @@ public class Click {
         int bombs= 0;
         
         //Is bomb up?
-        if(check_superior(row) == true ){
+        if(checkSuperior(row) == true ){
             if(field.matrix[row-1][col].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto superior");
                 bombs++;
@@ -45,7 +45,7 @@ public class Click {
         }
         
         //is bomb bomb_superiorleft? ;
-        if(check_superior(row)== true && check_left(col)==true){
+        if(checkSuperior(row)== true && checkLeft(col)==true){
             if(field.matrix[row-1][col-1].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto superior esquerdo");
                 bombs++;
@@ -54,35 +54,35 @@ public class Click {
         
         
         //is bomb bomb_superiorright? ;
-        if(check_superior(row)== true && check_right(col, field.cols-1)==true){
+        if(checkSuperior(row)== true && checkRight(col, field.cols-1)==true){
             if(field.matrix[row-1][col+1].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto superior direito");
                 bombs++;
             }
         }
         //check inferior right
-        if(check_inferior(row, field.rows)== true && check_right(col, field.cols-1)==true){
+        if(checkInferior(row, field.rows)== true && checkRight(col, field.cols-1)==true){
             if(field.matrix[row+1][col+1].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto inferior direito");
                 bombs++;
             }
         }
         //check inferior left
-        if(check_inferior(row, field.rows-1)== true && check_left(col)==true){
+        if(checkInferior(row, field.rows-1)== true && checkLeft(col)==true){
             if(field.matrix[row+1][col-1].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto inferior esquerdo");
                 bombs++;
             }
         }
         
-        if(check_right(col, field.cols-1) == true){
+        if(checkRight(col, field.cols-1) == true){
                 if(field.matrix[row][col+1].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto direito");
                 bombs++;
             }
         }
         
-        if(check_inferior(row, field.rows-1) == true){
+        if(checkInferior(row, field.rows-1) == true){
                 if(field.matrix[row+1][col].getIsBomb() == true){
                 System.out.println("Bomba detectada no canto inferior");
                 bombs++;
@@ -97,14 +97,14 @@ public class Click {
     }
     
     
-    public boolean check_superior(int row){
+    public boolean checkSuperior(int row){
         if(row == 0){
             
             return false;
         }
         return true;
     }
-    public boolean check_left(int col){
+    public boolean checkLeft(int col){
         if(col == 0){
             return false;
         }
@@ -112,7 +112,7 @@ public class Click {
             return true;
         }
     }
-    public boolean check_right(int col, int max){
+    public boolean checkRight(int col, int max){
         if(col == max){
             return false;
         }
@@ -120,7 +120,7 @@ public class Click {
             return true;
         }
     }
-    public boolean check_inferior(int row, int max){
+    public boolean checkInferior(int row, int max){
         if(row == max){
             return false;
         }

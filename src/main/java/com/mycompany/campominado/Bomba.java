@@ -5,9 +5,4 @@ public class Bomba extends Celula{
         super(isBomb, row, col);
         this.setIsBomb(true);
     }
-
-    /*public void explodeBomb(){
-        System.out.println("BOOOOOOOOOM");
-        //Adicionar mais codigo dps.
-    }*/
 }

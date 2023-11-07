@@ -85,6 +85,7 @@ public class Field {
                 else {
                     if(!(this.matrix[i][j].getIsBomb())){
                         this.matrix[i][j] = new Vazio(false, i, j);
+                        
                     }
                     
                 }
@@ -104,7 +105,7 @@ public class Field {
         for(int i = -1; i<2; i++){
             for(int w = -1; w<2; w++){
             try {
-                System.out.println(String.format("Testando posicao [%d,%d]", row+i, col+w));
+                
             if(this.matrix[row+i][col+w].getIsBomb()){
                 System.out.println(String.format("Bomba detectada em [%d, %d]", row+i, col+w));
                numBomb++;

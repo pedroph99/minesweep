@@ -10,7 +10,15 @@ package com.mycompany.campominado;
  */
 public class Celula {
     private  Boolean isBomb;
+    private Boolean isVazio;
 
+    public void setIsVazio(Boolean isVazio) {
+        this.isVazio = isVazio;
+    }
+
+    public Boolean getIsVazio() {
+        return isVazio;
+    }
     public void setIsBomb(Boolean isBomb) {
         this.isBomb = isBomb;
     }
@@ -36,6 +44,8 @@ public class Celula {
         this.matrixPosition[0] = row;
         this.matrixPosition[1] = col;
         this.isFlagged = false;
+        this.isVazio = false;
+        
         
         
     }

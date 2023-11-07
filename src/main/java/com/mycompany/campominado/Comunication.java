@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public  class Comunication {
     public static void StartGame(){
-        Field teste_field = new Field(3,3,3);// create a 3x3 matrix field for debbuging porpuses
+        Field teste_field = new Field(4,4,3);// create a 3x3 matrix field for debbuging porpuses
         
         
         teste_field.fillMatrix();

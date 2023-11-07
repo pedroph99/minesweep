@@ -48,33 +48,23 @@ public class Field {
         }
     }
     public void fillBombs(){
-        //Chance de 10% de ter bomba no elemento posicao.
+        
         int bombsLeft = this.bombNumber;
         Random randomNumber = new Random();
-        int currentRandom;
-        int i =0;
-        int w= 0;
+        int currentRandomRow;
+        int currentRandomCol;
+        
         while(bombsLeft > 0){
-        i=0;
-        w=0;
-        for(i=0; i<this.rows; i++){
-            for(w = 0; w<this.cols; w++){
-                currentRandom = randomNumber.nextInt(9)+1;
-                if(currentRandom ==  1){
-                    if(this.matrix[i][w].getIsBomb() == false || this.matrix[i][w] == null){
-                    insertBomb(i,w);
+        currentRandomRow = randomNumber.nextInt(this.rows);
+        currentRandomCol = randomNumber.nextInt(this.cols);
+        
+        if(this.matrix[currentRandomRow][currentRandomCol].getIsBomb() == false || this.matrix[currentRandomRow][currentRandomCol] == null){
+                    insertBomb(currentRandomRow,currentRandomCol);
                     bombsLeft = bombsLeft - 1;}
-                    
-                    else{
-                        System.out.println(String.format(" Tentou colocar no lugar errado [%d, %d]", i,w));
+        else{
+                        System.out.println(String.format(" Tentou colocar no lugar errado [%d, %d]", currentRandomRow,currentRandomCol));
                     }
-                }
-                else{
-                       System.out.println(currentRandom);
-                }
-                
-            }
-        }
+        
             System.out.println("Testee");
     }
     }
@@ -85,21 +75,53 @@ public class Field {
     }
 
     public void insertBombAround(int row, int col){
-
-        for(int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if(this.matrix[row-1+i][col-1+j].getIsBomb() && !this.matrix[row][col].getIsBomb()){
-                    this.matrix[row][col] = new BombaProxima(false, row, col);
+        
+        for(int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                int numBomb = CheckBombAround(i,j);
+                if(!(numBomb == 0)){
+                    this.matrix[i][j] = new BombaProxima(false, i, j, numBomb);
                 }
                 else {
-                    this.matrix[row][col] = new Vazio(false, row, col);
+                    if(!(this.matrix[i][j].getIsBomb())){
+                        this.matrix[i][j] = new Vazio(false, i, j);
+                    }
+                    
                 }
             }
         }
     }
 
 
+    public int CheckBombAround(int row, int col){
+        int numBomb = 0;
+        if(this.matrix[row][col].getIsBomb()){
+            System.out.println("Pegamos em bomba!!!");
+            
+            return 0;
+        }
+        
+        for(int i = -1; i<2; i++){
+            for(int w = -1; w<2; w++){
+            try {
+                System.out.println(String.format("Testando posicao [%d,%d]", row+i, col+w));
+            if(this.matrix[row+i][col+w].getIsBomb()){
+                System.out.println(String.format("Bomba detectada em [%d, %d]", row+i, col+w));
+               numBomb++;
+            
+            }
+               
+            
+        } catch (IndexOutOfBoundsException e) {
+            
+        }               
+            }
+           
 
+        }
+        System.out.println(String.format("Bomba em [%d, %d] possui %d bombas ao redor", row, col, numBomb));
+        return numBomb;
+    }
     public void AddPosition(int row, int col){
         ArrayList<Integer> current_position = new ArrayList<>();
         current_position.add(row);

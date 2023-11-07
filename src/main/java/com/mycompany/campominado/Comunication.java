@@ -49,9 +49,9 @@ public  class Comunication {
         }}
             
             if (!checker){
+                System.out.println(String.format("%d esta é a linha", linha));
                 StatusElemento = click.click(teste_field.matrix[linha][coluna], teste_field);
-                
-                if (StatusElemento == 'b'){
+                 if (StatusElemento == 'b'){
                     currentJogador.gameOverMessage();
                     
                     System.out.println("BOMBA CLICLADA");

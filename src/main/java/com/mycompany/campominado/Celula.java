@@ -37,6 +37,7 @@ public class Celula {
         this.matrixPosition[1] = col;
         this.isFlagged = false;
         
+        
     }
     
     

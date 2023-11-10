@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.campominado;
+package Features;
+import Elementos.Vazio;
+import Elementos.BombaProxima;
+import Elementos.Bomba;
+import Elementos.Celula;
 import java.util.ArrayList;
 import java.util.Random;
 /**

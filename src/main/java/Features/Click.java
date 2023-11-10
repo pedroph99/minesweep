@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.campominado;
+package Features;
 
+import Elementos.Celula;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * @author Usuario
  */
 public class Click {
-    public  char click(Celula cell, Field field){
+    public  char click(Celula cell, Field field, Jogador currentJogador){
         if(cell.getIsBomb()){
             
                 System.out.println("BOOOOOOOOOM");
@@ -20,7 +21,7 @@ public class Click {
             else{
                 if(!cell.getIsFlagged()){
                     ArrayList<ArrayList<Integer>> visitedPos = new ArrayList<ArrayList<Integer>>() ;
-                    checkVazio(cell, field, visitedPos);
+                    checkVazio(cell, field, visitedPos, currentJogador);
                     return 'a';
                     }
                 else{
@@ -35,7 +36,7 @@ public class Click {
    
     
     
-    public void checkVazio(Celula cell, Field field, ArrayList<ArrayList<Integer>> visitedPos){
+    public void checkVazio(Celula cell, Field field, ArrayList<ArrayList<Integer>> visitedPos, Jogador currentJogador){
         
         int row = cell.matrixPosition[0];
         int col = cell.matrixPosition[1];
@@ -52,7 +53,9 @@ public class Click {
              
             if(field.matrix[row+i][col+w].getIsVazio() && checkPos(visitedPos, row+i, col+w) ){
                 System.out.println(String.format("posicao visitada em recursao [%d, %d]", row+i, col+w));
-                checkVazio(field.matrix[row+i][col+w], field, visitedPos);
+                field.AddPosition(row+i, col+w);
+                currentJogador.aumentaPontuacao();
+                checkVazio(field.matrix[row+i][col+w], field, visitedPos, currentJogador);
                 System.out.println(String.format("Vazio detectado em [%d, %d]", row+i, col+w));
                
             

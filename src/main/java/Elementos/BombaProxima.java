@@ -1,4 +1,4 @@
-package com.mycompany.campominado;
+package Elementos;
 
 public class BombaProxima extends Celula{
     private int numeroBombas;

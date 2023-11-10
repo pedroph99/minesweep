@@ -4,6 +4,8 @@
 
 package com.mycompany.campominado;
 
+import Features.Comunication;
+
 /**
  *
  * @author pedro

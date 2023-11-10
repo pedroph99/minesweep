@@ -1,4 +1,6 @@
-package com.mycompany.campominado;
+package Elementos;
+
+import Elementos.Celula;
 
 public class Vazio extends Celula{
   

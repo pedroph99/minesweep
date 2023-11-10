@@ -1,4 +1,4 @@
-package com.mycompany.campominado;
+package Elementos;
 
 public class Bomba extends Celula{
     public Bomba(boolean isBomb, int row, int col) {

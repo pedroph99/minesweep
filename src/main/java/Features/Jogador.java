@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.campominado;
+package Features;
 
 /**
  *
@@ -20,7 +20,9 @@ public class Jogador {
     }
     
     public void aumentaPontuacao(){
+        
         this.pontuacao = pontuacao +1;
+        System.out.println(String.format("PONTUAÇÃO AGORA É %d", this.pontuacao));
     }
 
     public int getJogador() {

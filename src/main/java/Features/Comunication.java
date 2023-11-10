@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.campominado;
+package Features;
 
 import java.util.Scanner;
 
@@ -50,7 +50,7 @@ public  class Comunication {
             
             if (!checker){
                 System.out.println(String.format("%d esta é a linha", linha));
-                StatusElemento = click.click(teste_field.matrix[linha][coluna], teste_field);
+                StatusElemento = click.click(teste_field.matrix[linha][coluna], teste_field, currentJogador);
                  if (StatusElemento == 'b'){
                     currentJogador.gameOverMessage();
                     

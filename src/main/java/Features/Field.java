@@ -17,8 +17,16 @@ public class Field {
     int rows;
     int cols;
     int bombNumber;
-    Celula[][] matrix;
+    public  Celula[][] matrix;
+
+    public Celula[][] getMatrix() {
+        return matrix;
+    }
     private ArrayList<ArrayList<Integer>> clicked_positions = new ArrayList<>() ;
+
+    public ArrayList<ArrayList<Integer>> getClicked_positions() {
+        return clicked_positions;
+    }
     public void printClick(){
         System.out.println(clicked_positions);
     }

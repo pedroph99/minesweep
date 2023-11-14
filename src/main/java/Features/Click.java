@@ -20,9 +20,12 @@ public class Click {
             }
             else{
                 if(!cell.getIsFlagged()){
+                    field.AddPosition(cell.getMatrixPosition()[0], cell.getMatrixPosition()[1]);
                     ArrayList<ArrayList<Integer>> visitedPos = new ArrayList<ArrayList<Integer>>() ;
                     checkVazio(cell, field, visitedPos, currentJogador);
+                   
                     return 'a';
+                    
                     }
                 else{
                     
@@ -40,21 +43,36 @@ public class Click {
         
         int row = cell.matrixPosition[0];
         int col = cell.matrixPosition[1];
+        
+        
         if(  !(field.matrix[row][col].getIsVazio())  ){
+            System.out.println("Testando erro");
             return;
         }
+        
+        ArrayList currentVisited = new ArrayList<Integer>();
+        System.out.println("=======================TESTE EM RECURSAO=====================");
+             currentVisited.add(row);
+             currentVisited.add(col);
+             System.out.println(String.format("adicionei a posicao [%d,%d]", row, col));
+             if(checkPos(visitedPos, row, col)){
+                 visitedPos.add(currentVisited);
+             }
+             
+             field.getClicked_positions().add(currentVisited);
+             currentJogador.aumentaPontuacao();
+             System.out.println(visitedPos);
+        System.out.println("=======================TESTE EM RECURSAO=====================");
         for(int i = -1; i<2; i++){
             for(int w = -1; w<2; w++){
             try {
-             ArrayList currentVisited = new ArrayList<Integer>();
-             currentVisited.add(row);
-             currentVisited.add(col);
-             visitedPos.add(currentVisited);
+             
              
             if(field.matrix[row+i][col+w].getIsVazio() && checkPos(visitedPos, row+i, col+w) ){
                 System.out.println(String.format("posicao visitada em recursao [%d, %d]", row+i, col+w));
-                field.AddPosition(row+i, col+w);
-                currentJogador.aumentaPontuacao();
+                
+                
+               
                 checkVazio(field.matrix[row+i][col+w], field, visitedPos, currentJogador);
                 System.out.println(String.format("Vazio detectado em [%d, %d]", row+i, col+w));
                
@@ -62,7 +80,7 @@ public class Click {
             }
                
             
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException  e) {
             
         }               
             }
@@ -71,7 +89,7 @@ public class Click {
         }
     }
     
-    public boolean checkPos(ArrayList<ArrayList<Integer>> visitedPos, int row, int col){
+    private boolean checkPos(ArrayList<ArrayList<Integer>> visitedPos, int row, int col){ // checa se posicao já foi visitada
         for(int i = 0; i<visitedPos.size(); i++){
             if(visitedPos.get(i).get(0) == row && visitedPos.get(i).get(1) == col){
                 System.out.println("Encontrei posicao");

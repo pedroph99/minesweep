@@ -8,7 +8,7 @@ package Elementos;
  *
  * @author pedro
  */
-public class Celula {
+public abstract class Celula {
     private  Boolean isBomb;
     private Boolean isVazio;
 

@@ -5,16 +5,23 @@
 package Features;
 
 import java.util.Scanner;
-
+import Interface.MainWindow;
 /**
  *
  * @author Usuario
  */
 public  class Comunication {
     public static void StartGame(){
-        Field teste_field = new Field(4,4,3);// create a 3x3 matrix field for debbuging porpuses
         
         
+        Field teste_field = new Field(9,9,5);// create a 3x3 matrix field for debbuging porpuses
+        Jogador player1 = new Jogador();
+        player1.setJogador(1);
+        
+        Jogador player2 = new Jogador(); //Create objects jogador
+        player2.setJogador(2); // set jogadores numero;
+        MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2);
+        MainJanela.CreateWin();//Create mainWin to integrate with game
         teste_field.fillMatrix();
         teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
         teste_field.insertBombAround(teste_field.rows, teste_field.cols);
@@ -33,11 +40,7 @@ public  class Comunication {
         System.out.print("Digite o número da linha: ");
         int linha = scanner.nextInt(); // Scan row and column that will be clicked.
         
-        Jogador player1 = new Jogador();
-        player1.setJogador(1);
         
-        Jogador player2 = new Jogador(); //Create objects jogador
-        player2.setJogador(2);
         
         Jogador currentJogador = player1;
         

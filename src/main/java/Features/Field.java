@@ -13,10 +13,8 @@ import java.util.Random;
  *
  * @author pedro
  */
-public class Field {
-    int rows;
-    int cols;
-    int bombNumber;
+public class Field extends FieldPai implements FieldInterface {
+    
     public  Celula[][] matrix;
 
     public Celula[][] getMatrix() {
@@ -31,9 +29,7 @@ public class Field {
         System.out.println(clicked_positions);
     }
     public Field(int rows, int cols, int bombNumber){
-        this.rows = rows;
-        this.cols = cols;
-        this.bombNumber = bombNumber;
+        super(rows, cols, bombNumber);
         createMatrix(this.rows, this.cols);
     }
     private void createMatrix(int rows, int cols){
@@ -46,19 +42,22 @@ public class Field {
      
     }
     
+    @Override
     public void insertMatrix(Celula newElement, int posRow, int posCol ){
          System.out.println(String.format("Feito em %d %d", posRow, posCol));
          this.matrix[posRow][posCol] = newElement;
          
      }
     
+    @Override
     public void fillMatrix(){
         for(int i = 0; i<this.rows; i++){
             for(int w = 0; w<this.cols; w++){
-                insertMatrix(new Celula(false, i, w), i, w);
+                insertMatrix(new Vazio(false, i, w), i, w);
             }
         }
     }
+    @Override
     public void fillBombs(){
         
         int bombsLeft = this.bombNumber;
@@ -86,6 +85,7 @@ public class Field {
         this.matrix[row][col] = new Bomba( true, row, col);
     }
 
+    @Override
     public void insertBombAround(int row, int col){
         
         for(int i = 0; i < row; i++) {
@@ -149,6 +149,11 @@ public class Field {
     public int[] ClickedElement(int position){
         int[] positions = {this.clicked_positions.get(position).get(0), this.clicked_positions.get(position).get(1)};
         return positions;
+    }
+
+    @Override
+    public void setIsVazio(Boolean isVazio) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

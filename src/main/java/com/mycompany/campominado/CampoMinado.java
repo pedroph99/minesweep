@@ -14,8 +14,11 @@ import Features.Comunication;
 public class CampoMinado {
 
     public static void main(String[] args) {
-    
-        Comunication.StartGame();
+        
+        
+        Comunication.StartMenu();
+        
+        
         
     }
 }

@@ -4,6 +4,7 @@
  */
 package Features;
 
+import Interface.MainMenu;
 import java.util.Scanner;
 import Interface.MainWindow;
 /**
@@ -14,13 +15,13 @@ public  class Comunication {
     public static void StartGame(){
         
         
-        Field teste_field = new Field(5,5,3);// create a 3x3 matrix field for debbuging porpuses
+        Field teste_field = new Field(9,9,5);// create a 3x3 matrix field for debbuging porpuses
         Jogador player1 = new Jogador();
         player1.setJogador(1);
         
         Jogador player2 = new Jogador(); //Create objects jogador
         player2.setJogador(2); // set jogadores numero;
-        MainWindow MainJanela = new MainWindow(5,5,800,600, teste_field, player1, player2);
+        MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2);
         MainJanela.CreateWin();//Create mainWin to integrate with game
         teste_field.fillMatrix();
         teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
@@ -90,5 +91,28 @@ public  class Comunication {
         
         
         scanner.close();
+    }
+    
+    public static void StartMenu(){
+        MainMenu menu = new MainMenu(800, 600);
+        
+        menu.CreateWin();
+        
+        
+       
+        
+        
+       
+        
+        
+    }
+    
+    
+    public static Field StartField(int rows, int cols){
+        Field teste_field = new Field(9,9,5);// create a 3x3 matrix field for debbuging porpuses
+        teste_field.fillMatrix();
+        teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
+        teste_field.insertBombAround(teste_field.rows, teste_field.cols);
+        return teste_field;
     }
 }

@@ -4,6 +4,7 @@
  */
 package Features;
 
+import Interface.MainMenu;
 import java.util.Scanner;
 import Interface.MainWindow;
 /**
@@ -90,5 +91,39 @@ public  class Comunication {
         
         
         scanner.close();
+    }
+    
+    public static void StartMenu(){
+        MainMenu menu = new MainMenu(800, 600);
+        
+        menu.CreateWin();
+        
+        
+       
+        
+        
+       
+        
+        
+    }
+    
+    public static void StartField(int rows, int cols, int  maluquisse){
+        System.out.println("============================TESTE MALUCO=======================");
+        FieldMaluco field = new FieldMaluco(rows,cols,3,maluquisse);
+        field.fillMatrix();
+        field.fillBombs(); // Filling the Minesweeper matrix with bombs.
+        field.insertBombAround(field.rows, field.cols);
+        System.out.println("============================TESTE MALUCO=======================");
+        
+    }
+    
+    //StartField OVERLOAD!!
+    public static Field StartField(int rows, int cols){
+        
+        Field teste_field = new Field(9,9,5);// create a 3x3 matrix field for debbuging porpuses
+        teste_field.fillMatrix();
+        teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
+        teste_field.insertBombAround(teste_field.rows, teste_field.cols);
+        return teste_field;
     }
 }

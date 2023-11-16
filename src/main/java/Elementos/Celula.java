@@ -11,7 +11,15 @@ package Elementos;
 public abstract class Celula {
     private  Boolean isBomb;
     private Boolean isVazio;
+    private Boolean isMaluca;
 
+    public void setIsMaluca(Boolean isMaluca) {
+        this.isMaluca = isMaluca;
+    }
+
+    public Boolean getIsMaluca() {
+        return isMaluca;
+    }
     public void setIsVazio(Boolean isVazio) {
         this.isVazio = isVazio;
     }

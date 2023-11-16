@@ -19,9 +19,8 @@ import java.util.ArrayList;
  *
  * @author Usuario
  */
-public class MainWindow {
-    private int width;
-    private int height;
+public class MainWindow extends JanelaPai implements InterfaceJanelas {
+    
     private int rows;
     private Field field;
     private Jogador currentJogador;
@@ -43,6 +42,7 @@ public class MainWindow {
     private int cols;
     
     public MainWindow(int rows, int cols, int width, int height, Field field, Jogador jogador1, Jogador jogador2){
+        super(width, height);
         this.rows = rows;
         this.cols = cols;
         this.width = width;
@@ -56,17 +56,19 @@ public class MainWindow {
         
         
     }
+    @Override
     public  void CreateWin(){
         
-        JFrame frame = new JFrame("Campo minado");
+        JFrame frame2 = new JFrame("Campo minado");
         JPanel PainelMatriz = new JPanel();
         JPanel PainelAux = new JPanel();
+        System.out.println("PEDRO TESTES");
         
         
         
         // set frame site
-        frame.setMinimumSize(new Dimension(this.width, this.height));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.setMinimumSize(new Dimension(this.width, this.height));
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // center the JLabel
        
@@ -84,14 +86,15 @@ public class MainWindow {
         
 
         // display it
-        frame.setLayout(new GridLayout(2, 1));
-        frame.add(PainelMatriz);
-        frame.add(PainelAux);        
-        frame.pack();
-        frame.setVisible(true);
+        frame2.setLayout(new GridLayout(2, 1));
+        frame2.add(PainelMatriz);
+        frame2.add(PainelAux);        
+        frame2.pack();
+        frame2.setVisible(true);
     }
     
     private void createButton(Field field, JPanel frame, int row, int col){ // Cria botões e os registra em um array de JButtons.
+       
         JButton CurrentButton = new JButton();
         this.botoes[row][col] = CurrentButton;
         CurrentButton.addActionListener(new ActionListener() {
@@ -206,4 +209,6 @@ public class MainWindow {
     
     
 }
+
+    
 }

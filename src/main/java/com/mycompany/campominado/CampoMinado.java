@@ -15,7 +15,7 @@ public class CampoMinado {
 
     public static void main(String[] args) {
         
-        
+        Comunication.StartField(9, 9, 50);
         Comunication.StartMenu();
         
         

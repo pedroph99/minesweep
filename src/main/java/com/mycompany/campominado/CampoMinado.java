@@ -5,6 +5,8 @@
 package com.mycompany.campominado;
 
 import Features.Comunication;
+import Features.Jogador;
+import Interface.JanelaMaluca;
 
 
 /**
@@ -14,9 +16,12 @@ import Features.Comunication;
 public class CampoMinado {
 
     public static void main(String[] args) {
-        
-        Comunication.StartField(9, 9, 50);
-        Comunication.StartMenu();
+        int rows = 9;
+        int cols = 9;
+        Jogador jogador1 = new Jogador();
+        Jogador jogador2 = new Jogador();
+        JanelaMaluca janela = new JanelaMaluca(800,600,rows,cols, Comunication.StartField(rows, cols, 20), jogador1, jogador2 );
+        janela.CreateWin();
         
         
         

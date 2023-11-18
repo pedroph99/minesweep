@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -56,7 +57,7 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
     }
     
     public void Start(){ // Substitui o StartGame(), já que bugou.
-        Comunication teste = new Comunication();
+        
         Field teste_field = Comunication.StartField(9, 9);
         Jogador player1 = new Jogador();
         player1.setJogador(1);
@@ -71,4 +72,10 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
         
         
     }
+
+   
+
+    
+
+    
 }

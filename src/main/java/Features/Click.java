@@ -12,6 +12,33 @@ import java.util.ArrayList;
  * @author Usuario
  */
 public class Click {
+    
+    public char click(Celula cell, FieldMaluco field, Jogador currentJogador){
+    
+    if(cell.getIsBomb()){
+            
+                System.out.println("BOOOOOOOOOM");
+                return 'b';
+            }
+            else{
+                if(!cell.getIsFlagged()){
+                    field.AddPosition(cell.getMatrixPosition()[0], cell.getMatrixPosition()[1]);
+                    ArrayList<ArrayList<Integer>> visitedPos = new ArrayList<ArrayList<Integer>>() ;
+                    checkVazio(cell, field, visitedPos, currentJogador);
+                   
+                    
+                    return 'a';
+                    
+                    }
+                else{
+                    
+                    System.out.println("Position flagged");
+                    
+                    return 'f';
+                }
+    }
+    
+    }
     public  char click(Celula cell, Field field, Jogador currentJogador){
         if(cell.getIsBomb()){
             
@@ -39,7 +66,7 @@ public class Click {
    
     
     
-    public void checkVazio(Celula cell, Field field, ArrayList<ArrayList<Integer>> visitedPos, Jogador currentJogador){
+    public void checkVazio(Celula cell, FieldPai field, ArrayList<ArrayList<Integer>> visitedPos, Jogador currentJogador){
         
         int row = cell.matrixPosition[0];
         int col = cell.matrixPosition[1];

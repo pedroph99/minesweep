@@ -13,7 +13,7 @@ import Elementos.Celula;
 public abstract  interface FieldInterface {
     
     
-    public void AddPosition(int row, int col);
+    
     public int lengthClicked();
      public void setIsVazio(Boolean isVazio);
      public int[] ClickedElement(int position);

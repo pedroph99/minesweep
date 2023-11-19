@@ -132,4 +132,7 @@ public  class Comunication {
         teste_field.insertBombAround(teste_field.rows, teste_field.cols);
         return teste_field;
     }
+    
+    
+    
 }

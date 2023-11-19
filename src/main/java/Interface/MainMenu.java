@@ -6,8 +6,10 @@ package Interface;
 
 import Features.Comunication;
 import Features.Field;
+import Features.FieldMaluco;
 import Features.Jogador;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -29,22 +31,35 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
     @Override
     public void CreateWin() {
         JFrame frame = new JFrame("Menu principal");
+        frame.setLayout(new GridLayout(1,2));
         frame.setMinimumSize(new Dimension(this.width, this.height));
         frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        CriaBotao(frame);
+        CriaBotao(frame, false);
+        CriaBotao(frame, true);
         frame.pack();
         frame.setVisible(true);
         
         
     }
     
-    public void CriaBotao(JFrame frame){
-        JButton currentBotao = new JButton("Start Minesweeper");
+    public void CriaBotao(JFrame frame, boolean maluco){
+        
+        JButton currentBotao = new JButton("Campo Minado");
+        if(maluco){
+            currentBotao.setText("Campo minado maluco ");
+        }
         currentBotao.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                Start();
-                System.out.println("OK");
+                if(maluco){
+                    
+                    StartMaluco();
+                }
+                else{
+                    Start();
+                }
+                
+                
                frame.dispose();
                 
                 
@@ -55,6 +70,8 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
         
         
     }
+    
+    
     
     public void Start(){ // Substitui o StartGame(), já que bugou.
         
@@ -71,6 +88,17 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
         
         
         
+    }
+    public  void StartMaluco(){
+        
+        int rows = 9;
+        int cols = 9;
+        Jogador jogador1 = new Jogador();
+        Jogador jogador2 = new Jogador();
+        JanelaMaluca janela = new JanelaMaluca(800,600,rows,cols, Comunication.StartField(rows, cols, 20), jogador1, jogador2 );
+        janela.CreateWin();
+        
+
     }
 
    

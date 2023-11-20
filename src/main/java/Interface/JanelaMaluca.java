@@ -1,58 +1,41 @@
-package Interface;
-
-
-import Features.Click;
-import Features.Field;
-import Features.Jogador;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package Interface;
+
+import Features.Comunication;
+import Features.Field;
+import Features.FieldMaluco;
+import Features.Jogador;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Usuario
  */
-public class MainWindow extends JanelaJogos implements InterfaceJanelas {
-    
-    private int rows;
-    private Field field;
-    private Jogador currentJogador;
-    private Jogador Jogador1;
-    private Jogador Jogador2;
-    
-    private boolean flagger;
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCols() {
-        return cols;
-    }
-
-    
-    private int cols;
-    
-    public MainWindow(int rows, int cols, int width, int height, Field field, Jogador jogador1, Jogador jogador2){
+public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
+    int rows;
+    int cols;
+    FieldMaluco field;
+    public JanelaMaluca(int width, int height, int rows, int cols, FieldMaluco field, Jogador jogador1, Jogador jogador2){
         super(width, height, jogador1, jogador2, rows, cols);
         this.rows = rows;
         this.cols = cols;
-        this.width = width;
-        this.height = height;
         this.field = field;
-        
-    
-       
-        
-        
     }
-    @Override
+    
+
+   
+    
+
     public  void CreateWin(){
         
         JFrame frame2 = new JFrame("Campo minado");
@@ -79,7 +62,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         
         // add JLabel to JFrame
         criaBotaoFlag(PainelAux);
-       
+        
 
         // display it
         frame2.setLayout(new GridLayout(2, 1));
@@ -88,11 +71,10 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         frame2.pack();
         frame2.setVisible(true);
     }
+
     
-    private void createButton(Field field, JPanel frame, int row, int col){ // Cria botões e os registra em um array de JButtons.
-        System.out.println("TESTANDO BOTOES");
-        
-        JButton CurrentButton = new JButton();
+    public void createButton(FieldMaluco field, JPanel frame, int row, int col) {
+    JButton CurrentButton = new JButton();
         this.botoes[row][col] = CurrentButton;
         CurrentButton.addActionListener(new ActionListener() {
             @Override
@@ -120,7 +102,8 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
                 
                 CurrentButton.setEnabled(false); // Botão não pode ser mais clicado para evitar problemas.
                 
-                comutaJogador();
+                comutaJogador();// Muda de jogador após o EventClick
+                mudancaMaluca();// Realiza a mudança, característica principal do CampoMinadoMaluco
                  }}
         }
                 
@@ -128,13 +111,44 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         
         );
         CurrentButton.setName(String.format("%d,%d", row, col)); // Informações para o botão. Identificador.
-        frame.add(CurrentButton);
+        frame.add(CurrentButton);    
+    
     }
     
-    
-    
+    public  void StartMaluco(){
+        
+        FieldMaluco teste_field = Comunication.StartField(4, 4, 10);
+       
+        Jogador player1 = new Jogador();
+        player1.setJogador(1);
+        
+        Jogador player2 = new Jogador(); //Create objects jogador
+        player2.setJogador(2); // set jogadores numero;
+        JanelaMaluca MainJanela = new JanelaMaluca(9,9,800,600, teste_field, player1, player2);
+        MainJanela.CreateWin();//Create mainWin to integrate with game
+        
 
-
+    }
+    public void mudancaMaluca(){
+        this.field.MudaMaluco();
+        updatePositions();
+    }
+    
+    public void updatePositions(){
+        for(int i = 0; i<this.field.getClicked_positions().size(); i++){
+            
+            int currentrow = this.field.getClicked_positions().get(i).get(0);
+            int currentcol = this.field.getClicked_positions().get(i).get(1);
+            System.out.println(String.format("Checking [%d,%d]", currentrow,currentcol));
+            int bombas  = this.field.CheckBombAround(currentrow, currentcol);
+            if(bombas>0){
+                System.out.println(String.format("Era pra mudar em [%d,%d]", currentrow,currentcol));
+                this.botoes[currentrow][currentcol].setBackground(Color.yellow);
+                this.botoes[currentrow][currentcol].setText(String.valueOf(bombas));
+            }
+        }
+    }
+    
     
 
     

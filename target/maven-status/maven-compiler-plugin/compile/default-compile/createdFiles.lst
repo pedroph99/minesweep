@@ -1,4 +1,3 @@
-Interface\MainWindow$2.class
 Features\Field.class
 Interface\JanelaPai.class
 Elementos\BombaProxima.class
@@ -7,8 +6,12 @@ Elementos\Vazio.class
 Features\Jogador.class
 Features\FieldInterface.class
 Interface\MainWindow.class
+Interface\JanelaMaluca$1.class
 Elementos\Celula.class
 Features\Click.class
+Interface\JanelaJogos$1.class
+Interface\JanelaMaluca.class
+Interface\JanelaJogos.class
 com\mycompany\campominado\CampoMinado.class
 Elementos\Bomba.class
 Interface\MainMenu.class

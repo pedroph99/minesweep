@@ -4,6 +4,9 @@
  */
 package Interface;
 
+import Features.Field;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Usuario

@@ -1,10 +1,11 @@
-<<<<<<< HEAD
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Elementos\Bomba.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Features\FieldInterface.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Features\FieldMaluco.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Interface\InterfaceJanelas.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Features\Comunication.java
+C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Interface\JanelaMaluca.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Elementos\BombaProxima.java
+C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Interface\JanelaJogos.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Features\Jogador.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Features\FieldPai.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\com\mycompany\campominado\CampoMinado.java
@@ -15,23 +16,3 @@ C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Features\Fiel
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Interface\JanelaPai.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Interface\MainMenu.java
 C:\Users\pedro\OneDrive\햞ea de Trabalho\CampoMinado\src\main\java\Interface\MainWindow.java
-=======
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Features\Comunication.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Elementos\Bomba.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Interface\JanelaPai.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Features\FieldPai.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\com\mycompany\campominado\CampoMinado.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Features\Field.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Features\Click.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Elementos\BombaProxima.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Features\FieldMaluco.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Interface\MainMenu.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Interface\InterfaceJanelas.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Interface\JanelaJogos.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Features\FieldInterface.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Features\Jogador.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Elementos\Vazio.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Interface\JanelaMaluca.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Elementos\Celula.java
-C:\Users\Usuario\Desktop\new_things\projeto_java\src\main\java\Interface\MainWindow.java
->>>>>>> 5b2933d9762eec38eec68271e2bbdc7e25eb923a

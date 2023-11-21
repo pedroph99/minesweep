@@ -106,6 +106,15 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             NovoVazio.setText("");
             NovoVazio.setBackground(Color.green);
             NovoVazio.setEnabled(false);
+            
+            int TesteBombaProxima = field.CheckBombAround(CurrentClicado.get(0), CurrentClicado.get(1));
+            System.out.println(String.format("BOMBAS PROXIMAS EM [%d,%d] é %d", CurrentClicado.get(0),CurrentClicado.get(1),  TesteBombaProxima));
+            if(TesteBombaProxima>0){
+                System.out.println("TESTANDO AQUI");
+                NovoVazio.setText(String.valueOf(TesteBombaProxima));
+                NovoVazio.setBackground(Color.yellow);
+                NovoVazio.setEnabled(false);
+            }
         }
         // Se bomba, red. Se vazio, green. Se BombaProxima, Yellow
         if(field.getMatrix()[row][col].getIsBomb()){ 
@@ -141,11 +150,22 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             System.out.println(this.botoes[0][0]);
             System.out.println(String.format("nova pos: [%d, %d]", CurrentClicado.get(0), CurrentClicado.get(1)));
             System.out.println(CurrentClicado.get(0));
-           
+            
+            
             JButton  NovoVazio = this.botoes[CurrentClicado.get(0)][CurrentClicado.get(1)];
             NovoVazio.setText("");
             NovoVazio.setBackground(Color.green);
             NovoVazio.setEnabled(false);
+            int TesteBombaProxima = field.CheckBombAround(CurrentClicado.get(0), CurrentClicado.get(1));
+           
+            if(TesteBombaProxima>0){
+                System.out.println("TESTANDO AQUI");
+                NovoVazio.setText(String.valueOf(TesteBombaProxima));
+                NovoVazio.setBackground(Color.yellow);
+                NovoVazio.setEnabled(false);
+            }
+            
+            
         }
         // Se bomba, red. Se vazio, green. Se BombaProxima, Yellow
         if(field.getMatrix()[row][col].getIsBomb()){ 

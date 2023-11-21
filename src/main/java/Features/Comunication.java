@@ -112,7 +112,7 @@ public  class Comunication {
     
     public static FieldMaluco StartField(int rows, int cols, int  maluquisse){
         System.out.println("============================TESTE MALUCO=======================");
-        FieldMaluco field = new FieldMaluco(rows,cols,4,maluquisse);
+        FieldMaluco field = new FieldMaluco(rows,cols,13,maluquisse);
         field.fillMatrix();
         field.fillBombs(); // Filling the Minesweeper matrix with bombs.
         

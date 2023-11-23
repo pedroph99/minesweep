@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Score {
-    //Modificar aq caso o diretorio ou o tipo do arquivo mude
+
     private String scoreFilePath = "playerScore.txt";
     private File scoreFile = new File(scoreFilePath);
+    private String[] scoreList = new String[10];
+
     public void createScoreFile(){
         try{
             if(scoreFile.createNewFile()){
@@ -23,17 +25,45 @@ public class Score {
         }
     }
 
-    public void saveScore(String name, int score){
+    public void saveScore(){
         try {
             FileWriter writeScore = new FileWriter(scoreFilePath);
-            writeScore.write(name + " " + score);
+            for(String score : scoreList){
+                writeScore.write(score + System.lineSeparator());
+            }
             writeScore.close();
-            //Adicionar função para salvar apenas 10 Scores
             System.out.println("Score Saved");
         }
         catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+    }
+
+    public void sortScore(String name, int score){
+        try {
+            Scanner sc = new Scanner(scoreFile);
+            for (int i = 0; i < 10 || sc.hasNextLine(); i++){
+                scoreList[i] = sc.nextLine();
+            }
+            sc.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        for(int i = 0; i < 10; i++){
+            if(scoreList[i] == null || scoreList[i].equals("")){
+                scoreList[i] = (name + " " + score);
+                break;
+            }else {
+                String[] aux = scoreList[i].split(" ");
+                if(score >= Integer.parseInt(aux[1])) {
+                    scoreList[i] = (name + " " + score);
+                    name = aux[0];
+                    score = Integer.parseInt(aux[1]);
+                }
+            }
         }
     }
 

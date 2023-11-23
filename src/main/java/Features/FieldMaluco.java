@@ -80,18 +80,18 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
         if(this.matrix[row][col].getIsBomb()){
             int bombasProximas =this.CheckBombAroundMaluco(row, col);
             if( bombasProximas> 0 ){
-                this.matrix[row][col] = new BombaProxima(false, row, col, bombasProximas );
+                this.matrix[row][col] = new BombaProxima(row, col, bombasProximas );
                 System.out.println(String.format("Mudou para BombaProxima___TESTE__ em [%d,%d]", row,col)); //Mudar isto
             }
             
             else{
-                this.matrix[row][col] = new Vazio(false, row, col);
+                this.matrix[row][col] = new Vazio(row, col);
                 System.out.println(String.format("Mudou para vazio em [%d,%d]", row,col));
             }
         }
         else{
             System.out.println("======================TESTE BOMBA=================");
-           this.matrix[row][col] = new Bomba(true,row, col);
+           this.matrix[row][col] = new Bomba(row, col);
            System.out.println(String.format("Mudou para bomba em [%d, %d]", row, col) );
            for(int i = -1; i<2; i++){
             for(int w = -1; w<2; w++){
@@ -99,7 +99,7 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
           
            int bombasProximas = this.CheckBombAround(row+i, col+w);
            if (!(this.matrix[row+i][col+w].getIsBomb())){
-               this.matrix[row+i][col+w] = new BombaProxima(false, row+i, col+w, bombasProximas);
+               this.matrix[row+i][col+w] = new BombaProxima( row+i, col+w, bombasProximas);
                 System.out.println(String.format("Mudou para bombaProxima em [%d, %d]", row+i, col+w) );
            }
            

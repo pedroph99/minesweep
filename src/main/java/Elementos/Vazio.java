@@ -6,13 +6,20 @@ public class Vazio extends Celula{
   
 
    
-    public Vazio(boolean isBomb, int row, int col) {
-        super(isBomb, row, col);
-        this.setIsVazio(true);
+    public Vazio(int row, int col) {
+        super(row, col);
         
        
     }
     
+    @Override
+    public Boolean getIsBomb() {
+        return false;
+    }
+    @Override
+    public Boolean getIsVazio() {
+        return true;
+    }
     
 
 

@@ -10,9 +10,18 @@ public class BombaProxima extends Celula{
     public int getNumeroBombas() {
         return numeroBombas;
     }
-    public BombaProxima(boolean isBomb, int row, int col, int numeroBombas) {
-        super(isBomb, row, col);
+    public BombaProxima(int row, int col, int numeroBombas) {
+        super( row, col);
         this.numeroBombas = numeroBombas;
+    }
+
+    @Override
+    public Boolean getIsBomb() {
+        return false;
+    }
+    @Override
+    public Boolean getIsVazio() {
+        return false;
     }
 
 

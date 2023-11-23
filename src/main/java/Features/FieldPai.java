@@ -45,7 +45,7 @@ public abstract  class FieldPai {
     public void fillMatrix(){
         for(int i = 0; i<this.rows; i++){
             for(int w = 0; w<this.cols; w++){
-                insertMatrix(new Vazio(false, i, w), i, w);
+                insertMatrix(new Vazio(i, w), i, w);
             }
         }
     }
@@ -80,7 +80,7 @@ public abstract  class FieldPai {
     
     public void insertBomb(int row, int col){
         System.out.println(String.format("BOMBA COLOCADA EM [%d, %d]", row,col));
-        this.matrix[row][col] = new Bomba( true, row, col);
+        this.matrix[row][col] = new Bomba(row, col);
     }
     
     public int CheckBombAround(int row, int col){
@@ -119,11 +119,11 @@ public abstract  class FieldPai {
             for (int j = 0; j < col; j++) {
                 int numBomb = CheckBombAround(i,j);
                 if(!(numBomb == 0)){
-                    this.matrix[i][j] = new BombaProxima(false, i, j, numBomb);
+                    this.matrix[i][j] = new BombaProxima( i, j, numBomb);
                 }
                 else {
                     if(!(this.matrix[i][j].getIsBomb())){
-                        this.matrix[i][j] = new Vazio(false, i, j);
+                        this.matrix[i][j] = new Vazio( i, j);
                         
                     }
                     

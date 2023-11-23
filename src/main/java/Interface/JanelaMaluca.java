@@ -41,6 +41,8 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         JFrame frame2 = new JFrame("Campo minado");
         JPanel PainelMatriz = new JPanel();
         JPanel PainelAux = new JPanel();
+        JPanel PainelJogadores = new JPanel();
+        JPanel[] Jogadores = new JPanel[2];
         System.out.println("PEDRO TESTES");
         
         
@@ -52,7 +54,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         // center the JLabel
        
         PainelMatriz.setLayout(new GridLayout(this.rows, this.cols));
-        
+        PainelJogadores.setLayout(new GridLayout(1,2));
         for(int i=0; i<rows; i++){
             for(int w=0; w<cols; w++){
                 createButton(this.field, PainelMatriz,i, w );
@@ -65,9 +67,11 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         
 
         // display it
-        frame2.setLayout(new GridLayout(2, 1));
+        frame2.setLayout(new GridLayout(3, 1));
         frame2.add(PainelMatriz);
-        frame2.add(PainelAux);        
+        frame2.add(PainelAux);     
+        createJogadores(PainelJogadores);
+        frame2.add(PainelJogadores);
         frame2.pack();
         frame2.setVisible(true);
     }
@@ -86,7 +90,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                 }
                 else{
                     
-                int checker = checkType(field, row, col);
+                int checker = checkType(field, row, col, Jogadores);
                 if(checker == 10){
                     CurrentButton.setBackground(Color.red);
                 }

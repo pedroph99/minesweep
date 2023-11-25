@@ -4,9 +4,12 @@
  */
 package Interface;
 
+import Elementos.Celula;
 import Features.Click;
+import Features.Comunication;
 import Features.Field;
 import Features.FieldMaluco;
+import Features.FieldPai;
 import Features.Jogador;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -168,6 +171,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         System.out.println("==========================TESTE==================");
         ArrayList<ArrayList<Integer>> ListaClicados = field.getClicked_positions();
         System.out.println(String.format("old click: %d   New_Click: %d", TamanhoOld, TamanhoNew));
+        aumentaPontuacaoTexto(jogadores, -TamanhoOld+TamanhoNew);
         for(int i=TamanhoOld; i<TamanhoNew; i++){
             
             ArrayList<Integer> CurrentClicado = ListaClicados.get(i);
@@ -215,8 +219,60 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         
     }
     
+    public void gameOver(JFrame frame, FieldPai field, int rows, int cols, JLabel jogador1, JLabel jogador2){
+        activateAllBombs(field, rows, cols);
+        escolheVencedor(jogador1, jogador2);
+        
+        
+    }
+    
+    
+        public void activateAllBombs(FieldPai field, int rows, int cols){
+        for(int i=0; i<rows; i++){
+            for(int w = 0; w<cols; w++){
+               if(field.getMatrix()[i][w].getIsBomb()){
+                   this.botoes[i][w].setBackground(Color.red);
+               }
+               else{
+                   this.botoes[i][w].setEnabled(false);
+               }
+                
+            }
+            
+            
+            
+        }
+     
+    }
+        
+        public void escolheVencedor(JLabel jogador1, JLabel jogador2){
+            jogador2.setText("");
+            this.comutaJogador();
+            int pontuacao = this.currentJogador.getPontuacao();
+            
+            jogador1.setText(String.format("Jogador %d é o vencedor com %d pontos", this.currentJogador.getJogador(), pontuacao));
+            
+            
+            
+        }
+        
+        
+        public void botaoMenu(JPanel panelFlag, JFrame frame){
+            System.out.println("CHAMADA REALIZADA BOTAOMENU");
+            JButton botaomenu = new JButton("Main Menu");
+            botaomenu.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.dispose();
+                    Comunication.StartMenu();
+                }
+                
+            });
+            panelFlag.add(botaomenu);
+        }
+    }
     
     
 
     
-}
+

@@ -4,9 +4,9 @@ Elementos\BombaProxima.class
 Interface\InterfaceJanelas.class
 Elementos\Vazio.class
 Features\Jogador.class
-Features\FieldInterface.class
 Interface\MainWindow.class
 Interface\JanelaMaluca$1.class
+Interface\JanelaJogos$2.class
 Elementos\Celula.class
 Features\Click.class
 Interface\JanelaJogos$1.class

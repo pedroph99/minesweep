@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -74,7 +76,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         PainelJogadores.setLayout(new GridLayout(1,2));
         for(int i=0; i<rows; i++){
             for(int w=0; w<cols; w++){
-                createButton(this.field, PainelMatriz,i, w, this.Jogadores );
+                createButton(this.field, PainelMatriz, PainelAux, frame2, i, w, this.Jogadores, this.rows, this.cols );
             }
             
         }
@@ -93,12 +95,12 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         frame2.setVisible(true);
     }
     
-    private void createButton(Field field, JPanel frame, int row, int col, JLabel[] jogadores){ // Cria botões e os registra em um array de JButtons.
+    private void createButton(Field field, JPanel frame,JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores, int fieldrows, int fieldcols){ // Cria botões e os registra em um array de JButtons.
         System.out.println("TESTANDO BOTOES");
         
         JButton CurrentButton = new JButton();
         this.botoes[row][col] = CurrentButton;
-        CurrentButton.addActionListener(new ActionListener() {
+        ActionListener acao = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isFlagger()){
@@ -112,7 +114,12 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
                 int checker = checkType(field, row, col, Jogadores);
                 if(checker == 10){
                     CurrentButton.setBackground(Color.red);
+                    gameOver(frameJanela, field, fieldrows, fieldcols, jogadores[0], jogadores[1]);
+                    botaoMenu(panelaux, frameJanela);
+                    
                 }
+                
+                
                 else if( checker == 0){
                     CurrentButton.setBackground(Color.green);
                 }
@@ -127,14 +134,19 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
                 
                 comutaJogador();
                  }}
-        }
+        };
+                
+        CurrentButton.addActionListener(acao);
                 
     
         
-        );
+        
         CurrentButton.setName(String.format("%d,%d", row, col)); // Informações para o botão. Identificador.
         frame.add(CurrentButton);
     }
+    
+    
+    
     
     
     

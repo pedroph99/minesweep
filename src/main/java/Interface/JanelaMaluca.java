@@ -13,8 +13,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -42,7 +45,6 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         JPanel PainelMatriz = new JPanel();
         JPanel PainelAux = new JPanel();
         JPanel PainelJogadores = new JPanel();
-        JPanel[] Jogadores = new JPanel[2];
         System.out.println("PEDRO TESTES");
         
         
@@ -57,7 +59,8 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         PainelJogadores.setLayout(new GridLayout(1,2));
         for(int i=0; i<rows; i++){
             for(int w=0; w<cols; w++){
-                createButton(this.field, PainelMatriz,i, w );
+                createButton(this.field, PainelMatriz, PainelAux, frame2, i, w, this.Jogadores, this.rows, this.cols );
+           
             }
             
         }
@@ -77,7 +80,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
     }
 
     
-    public void createButton(FieldMaluco field, JPanel frame, int row, int col) {
+    public void createButton(FieldMaluco field, JPanel frame, JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores, int fieldrows, int fieldcols ) {
     JButton CurrentButton = new JButton();
         this.botoes[row][col] = CurrentButton;
         CurrentButton.addActionListener(new ActionListener() {
@@ -93,6 +96,11 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                 int checker = checkType(field, row, col, Jogadores);
                 if(checker == 10){
                     CurrentButton.setBackground(Color.red);
+                    
+                        
+                       gameOver(frameJanela, field, fieldrows, fieldcols, jogadores[0], jogadores[1]);
+                       botaoMenu(panelaux, frameJanela);
+                    
                 }
                 else if( checker == 0){
                     CurrentButton.setBackground(Color.green);

@@ -5,7 +5,6 @@
 package Interface;
 
 import Features.Comunication;
-import Features.Field;
 import Features.FieldMaluco;
 import Features.Jogador;
 import java.awt.Color;
@@ -13,8 +12,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,7 +36,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
    
     
 
-    public  void CreateWin(){
+    public  void createWin(){
         
         JFrame frame2 = new JFrame("Campo minado");
         JPanel PainelMatriz = new JPanel();
@@ -88,7 +85,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
             public void actionPerformed(ActionEvent e) {
                 if(isFlagger()){
                     CurrentButton.setBackground(Color.pink);
-                    CurrentButton.setText("Flag");
+                    CurrentButton.setText("🚩");
                     CurrentButton.setEnabled(false);
                 }
                 else{
@@ -96,7 +93,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                 int checker = checkType(field, row, col, Jogadores);
                 if(checker == 10){
                     CurrentButton.setBackground(Color.red);
-                    
+
                         
                        gameOver(frameJanela, field, fieldrows, fieldcols, jogadores[0], jogadores[1]);
                        botaoMenu(panelaux, frameJanela);
@@ -137,7 +134,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         Jogador player2 = new Jogador(); //Create objects jogador
         player2.setJogador(2); // set jogadores numero;
         JanelaMaluca MainJanela = new JanelaMaluca(9,9,800,600, teste_field, player1, player2);
-        MainJanela.CreateWin();//Create mainWin to integrate with game
+        MainJanela.createWin();//Create mainWin to integrate with game
         
 
     }
@@ -147,10 +144,10 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
     }
     
     public void updatePositions(){
-        for(int i = 0; i<this.field.getClicked_positions().size(); i++){
+        for(int i = 0; i<this.field.getClickedPositions().size(); i++){
             
-            int currentrow = this.field.getClicked_positions().get(i).get(0);
-            int currentcol = this.field.getClicked_positions().get(i).get(1);
+            int currentrow = this.field.getClickedPositions().get(i).get(0);
+            int currentcol = this.field.getClickedPositions().get(i).get(1);
             System.out.println(String.format("Checking [%d,%d]", currentrow,currentcol));
             int bombas  = this.field.CheckBombAround(currentrow, currentcol);
             if(bombas>0){

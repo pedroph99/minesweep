@@ -89,7 +89,7 @@ public class Click {
                  visitedPos.add(currentVisited);
              }
              
-             field.getClicked_positions().add(currentVisited);
+             field.getClickedPositions().add(currentVisited);
              currentJogador.aumentaPontuacao();
              System.out.println(visitedPos);
         System.out.println("=======================TESTE EM RECURSAO=====================");
@@ -114,7 +114,7 @@ public class Click {
                     CurrentBombaProxima.add(row+i);
                     CurrentBombaProxima.add(col+w);
                     visitedPos.add(CurrentBombaProxima);
-                    field.getClicked_positions().add(CurrentBombaProxima);
+                    field.getClickedPositions().add(CurrentBombaProxima);
                     
                     System.out.println(String.format("BOMBAPROXIMA detectado em [%d,%d]", row+i, col+w));
                 }

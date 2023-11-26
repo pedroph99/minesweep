@@ -55,7 +55,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         
     }
     @Override
-    public  void CreateWin(){
+    public  void createWin(){
         
         JFrame frame2 = new JFrame("Campo minado");
         JPanel PainelMatriz = new JPanel();
@@ -105,7 +105,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
             public void actionPerformed(ActionEvent e) {
                 if(isFlagger()){
                     CurrentButton.setBackground(Color.pink);
-                    CurrentButton.setText("Flag");
+                    CurrentButton.setText("🚩");
                     CurrentButton.setEnabled(false);
                 }
                 else{

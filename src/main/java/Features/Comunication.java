@@ -4,7 +4,6 @@
  */
 package Features;
 
-import Interface.JanelaMaluca;
 import Interface.MainMenu;
 import java.util.Scanner;
 import Interface.MainWindow;
@@ -23,7 +22,7 @@ public  class Comunication {
         Jogador player2 = new Jogador(); //Create objects jogador
         player2.setJogador(2); // set jogadores numero;
         MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2);
-        MainJanela.CreateWin();//Create mainWin to integrate with game
+        MainJanela.createWin();//Create mainWin to integrate with game
         teste_field.fillMatrix();
         teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
         teste_field.insertBombAround(teste_field.rows, teste_field.cols);
@@ -99,7 +98,7 @@ public  class Comunication {
     public static void StartMenu(){
         MainMenu menu = new MainMenu(800, 600);
         
-        menu.CreateWin();
+        menu.createWin();
         
         
        

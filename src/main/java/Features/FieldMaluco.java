@@ -6,7 +6,6 @@ package Features;
 
 import Elementos.Bomba;
 import Elementos.BombaProxima;
-import Elementos.Celula;
 import Elementos.Vazio;
 import java.util.ArrayList;
 import java.util.Random;
@@ -58,8 +57,8 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
            System.out.println("COUNTER ++ ");
            checker = true;
            Integer[] currentPosicao = this.posicoesMalucas.get(random.nextInt(this.posicoesMalucas.size()));
-           for(int w = 0 ; w<this.clicked_positions.size(); w++){
-               if(this.clicked_positions.get(w).get(0).equals(currentPosicao[0]) && this.clicked_positions.get(w).get(1).equals(currentPosicao[1])){
+           for(int w = 0; w<this.clickedPositions.size(); w++){
+               if(this.clickedPositions.get(w).get(0).equals(currentPosicao[0]) && this.clickedPositions.get(w).get(1).equals(currentPosicao[1])){
                    System.out.println(String.format("Tentou mudar em Célula clicada [%d, %d]", currentPosicao[0], currentPosicao[1]));
                    checker = false;
                }
@@ -144,7 +143,7 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
     
     @Override
     public int lengthClicked() {
-        return this.clicked_positions.size();
+        return this.clickedPositions.size();
            }
 
     @Override
@@ -157,21 +156,21 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    public ArrayList<ArrayList<Integer>> clicked_positions = new ArrayList<ArrayList<Integer>>() ;
+    public ArrayList<ArrayList<Integer>> clickedPositions = new ArrayList<ArrayList<Integer>>() ;
 
-    public ArrayList<ArrayList<Integer>> getClicked_positions() {
-        return clicked_positions;
+    public ArrayList<ArrayList<Integer>> getClickedPositions() {
+        return clickedPositions;
     }
     
     public void AddPosition(int row, int col){
         ArrayList<Integer> current_position = new ArrayList<>();
         current_position.add(row);
         current_position.add(col);
-        this.clicked_positions.add(current_position);
+        this.clickedPositions.add(current_position);
     }
     
     public void printClick(){
-        System.out.println(clicked_positions);
+        System.out.println(clickedPositions);
     }
 
     

@@ -4,14 +4,11 @@
  */
 package Interface;
 
-import Features.Field;
-import javax.swing.JPanel;
-
 /**
  *
  * @author Usuario
  */
 public interface InterfaceJanelas {
-    public  void CreateWin();
+    public  void createWin();
     
 }

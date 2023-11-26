@@ -20,12 +20,12 @@ public abstract  class FieldPai {
     int cols;
     int bombNumber;
     Celula[][] matrix;
-    ArrayList<ArrayList<Integer>> clicked_positions ;
+    ArrayList<ArrayList<Integer>> clickedPositions;
     public FieldPai(int rows, int cols, int bombNumber){
         this.rows = rows;
         this.cols  = cols;
         this.bombNumber = bombNumber;
-        this.clicked_positions = new ArrayList<ArrayList<Integer>>() ;
+        this.clickedPositions = new ArrayList<ArrayList<Integer>>() ;
     }
     public Celula[][] getMatrix() {
         return matrix;
@@ -103,11 +103,9 @@ public abstract  class FieldPai {
                
             
         } catch (IndexOutOfBoundsException e) {
-            
-        }               
-            }
-           
 
+            }
+            }
         }
         System.out.println(String.format("Bomba em [%d, %d] possui %d bombas ao redor", row, col, numBomb));
         return numBomb;
@@ -136,19 +134,19 @@ public abstract  class FieldPai {
     
     
 
-    public ArrayList<ArrayList<Integer>> getClicked_positions() {
-        return clicked_positions;
+    public ArrayList<ArrayList<Integer>> getClickedPositions() {
+        return clickedPositions;
     }
     
     public void AddPosition(int row, int col){
         ArrayList<Integer> current_position = new ArrayList<>();
         current_position.add(row);
         current_position.add(col);
-        this.clicked_positions.add(current_position);
+        this.clickedPositions.add(current_position);
     }
     
     public void printClick(){
-        System.out.println(clicked_positions);
+        System.out.println(clickedPositions);
     }
     
 }

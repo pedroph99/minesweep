@@ -4,7 +4,6 @@
  */
 package Interface;
 
-import Elementos.Celula;
 import Features.Click;
 import Features.Comunication;
 import Features.Field;
@@ -12,7 +11,6 @@ import Features.FieldMaluco;
 import Features.FieldPai;
 import Features.Jogador;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -97,9 +95,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         
         
         System.out.println("==========================TESTE==================");
-        System.out.println(field.getClicked_positions());
+        System.out.println(field.getClickedPositions());
         System.out.println("==========================TESTE==================");
-        ArrayList<ArrayList<Integer>> ListaClicados = field.getClicked_positions();
+        ArrayList<ArrayList<Integer>> ListaClicados = field.getClickedPositions();
         System.out.println(String.format("old click: %d   New_Click: %d", TamanhoOld, TamanhoNew));
         aumentaPontuacaoTexto(jogadores, -TamanhoOld+TamanhoNew);
         
@@ -167,9 +165,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         
         
         System.out.println("==========================TESTE==================");
-        System.out.println(field.getClicked_positions());
+        System.out.println(field.getClickedPositions());
         System.out.println("==========================TESTE==================");
-        ArrayList<ArrayList<Integer>> ListaClicados = field.getClicked_positions();
+        ArrayList<ArrayList<Integer>> ListaClicados = field.getClickedPositions();
         System.out.println(String.format("old click: %d   New_Click: %d", TamanhoOld, TamanhoNew));
         aumentaPontuacaoTexto(jogadores, -TamanhoOld+TamanhoNew);
         for(int i=TamanhoOld; i<TamanhoNew; i++){
@@ -232,11 +230,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             for(int w = 0; w<cols; w++){
                if(field.getMatrix()[i][w].getIsBomb()){
                    this.botoes[i][w].setBackground(Color.red);
+                   this.botoes[i][w].setText("💣");
                }
-               else{
                    this.botoes[i][w].setEnabled(false);
-               }
-                
             }
             
             

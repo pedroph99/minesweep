@@ -5,7 +5,6 @@
 package Interface;
 
 import Features.Comunication;
-import Features.Field;
 import Features.FieldMaluco;
 import Features.Jogador;
 import java.awt.Color;
@@ -15,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -36,11 +36,12 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
    
     
 
-    public  void CreateWin(){
+    public  void createWin(){
         
         JFrame frame2 = new JFrame("Campo minado");
         JPanel PainelMatriz = new JPanel();
         JPanel PainelAux = new JPanel();
+        JPanel PainelJogadores = new JPanel();
         System.out.println("PEDRO TESTES");
         
         
@@ -52,10 +53,11 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         // center the JLabel
        
         PainelMatriz.setLayout(new GridLayout(this.rows, this.cols));
-        
+        PainelJogadores.setLayout(new GridLayout(1,2));
         for(int i=0; i<rows; i++){
             for(int w=0; w<cols; w++){
-                createButton(this.field, PainelMatriz,i, w );
+                createButton(this.field, PainelMatriz, PainelAux, frame2, i, w, this.Jogadores, this.rows, this.cols );
+           
             }
             
         }
@@ -65,15 +67,17 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         
 
         // display it
-        frame2.setLayout(new GridLayout(2, 1));
+        frame2.setLayout(new GridLayout(3, 1));
         frame2.add(PainelMatriz);
-        frame2.add(PainelAux);        
+        frame2.add(PainelAux);     
+        createJogadores(PainelJogadores);
+        frame2.add(PainelJogadores);
         frame2.pack();
         frame2.setVisible(true);
     }
 
     
-    public void createButton(FieldMaluco field, JPanel frame, int row, int col) {
+    public void createButton(FieldMaluco field, JPanel frame, JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores, int fieldrows, int fieldcols ) {
     JButton CurrentButton = new JButton();
         this.botoes[row][col] = CurrentButton;
         CurrentButton.addActionListener(new ActionListener() {
@@ -81,14 +85,19 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
             public void actionPerformed(ActionEvent e) {
                 if(isFlagger()){
                     CurrentButton.setBackground(Color.pink);
-                    CurrentButton.setText("Flag");
+                    CurrentButton.setText("🚩");
                     CurrentButton.setEnabled(false);
                 }
                 else{
                     
-                int checker = checkType(field, row, col);
+                int checker = checkType(field, row, col, Jogadores);
                 if(checker == 10){
                     CurrentButton.setBackground(Color.red);
+
+                        
+                       gameOver(frameJanela, field, fieldrows, fieldcols, jogadores[0], jogadores[1]);
+                       botaoMenu(panelaux, frameJanela);
+                    
                 }
                 else if( checker == 0){
                     CurrentButton.setBackground(Color.green);
@@ -125,7 +134,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         Jogador player2 = new Jogador(); //Create objects jogador
         player2.setJogador(2); // set jogadores numero;
         JanelaMaluca MainJanela = new JanelaMaluca(9,9,800,600, teste_field, player1, player2);
-        MainJanela.CreateWin();//Create mainWin to integrate with game
+        MainJanela.createWin();//Create mainWin to integrate with game
         
 
     }
@@ -135,10 +144,10 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
     }
     
     public void updatePositions(){
-        for(int i = 0; i<this.field.getClicked_positions().size(); i++){
+        for(int i = 0; i<this.field.getClickedPositions().size(); i++){
             
-            int currentrow = this.field.getClicked_positions().get(i).get(0);
-            int currentcol = this.field.getClicked_positions().get(i).get(1);
+            int currentrow = this.field.getClickedPositions().get(i).get(0);
+            int currentcol = this.field.getClickedPositions().get(i).get(1);
             System.out.println(String.format("Checking [%d,%d]", currentrow,currentcol));
             int bombas  = this.field.CheckBombAround(currentrow, currentcol);
             if(bombas>0){

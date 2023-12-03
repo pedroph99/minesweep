@@ -73,7 +73,10 @@ public class Click {
         
         
         if(  !(field.matrix[row][col].getIsVazio())  ){
-            System.out.println("Testando erro");
+            if(!(field.matrix[row][col].getIsBomb())){
+                System.out.println(String.format("BOMBA_PROXIMA EM [%d,%d]", row,col));
+            }
+            System.out.println("Testando aquiii ó");
             return;
         }
         
@@ -86,7 +89,7 @@ public class Click {
                  visitedPos.add(currentVisited);
              }
              
-             field.getClicked_positions().add(currentVisited);
+             field.getClickedPositions().add(currentVisited);
              currentJogador.aumentaPontuacao();
              System.out.println(visitedPos);
         System.out.println("=======================TESTE EM RECURSAO=====================");
@@ -104,6 +107,18 @@ public class Click {
                 System.out.println(String.format("Vazio detectado em [%d, %d]", row+i, col+w));
                
             
+            }
+            else{
+                if(checkPos(visitedPos, row+i, col+w)){
+                    ArrayList<Integer> CurrentBombaProxima = new ArrayList<Integer>();
+                    CurrentBombaProxima.add(row+i);
+                    CurrentBombaProxima.add(col+w);
+                    visitedPos.add(CurrentBombaProxima);
+                    field.getClickedPositions().add(CurrentBombaProxima);
+                    
+                    System.out.println(String.format("BOMBAPROXIMA detectado em [%d,%d]", row+i, col+w));
+                }
+               
             }
                
             

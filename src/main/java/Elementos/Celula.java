@@ -9,8 +9,8 @@ package Elementos;
  * @author pedro
  */
 public abstract class Celula {
-    private  Boolean isBomb;
-    private Boolean isVazio;
+    
+    
     private Boolean isMaluca;
 
     public void setIsMaluca(Boolean isMaluca) {
@@ -20,21 +20,15 @@ public abstract class Celula {
     public Boolean getIsMaluca() {
         return isMaluca;
     }
-    public void setIsVazio(Boolean isVazio) {
-        this.isVazio = isVazio;
-    }
+    
+    
 
-    public Boolean getIsVazio() {
-        return isVazio;
-    }
-    public void setIsBomb(Boolean isBomb) {
-        this.isBomb = isBomb;
-    }
+    public abstract Boolean getIsVazio();
+    
+    
 
-    public Boolean getIsBomb() {
-        return isBomb;
-    }
-
+    public abstract Boolean getIsBomb();
+    
     public int[] getMatrixPosition() {
         return matrixPosition;
     }
@@ -46,13 +40,13 @@ public abstract class Celula {
     public int bombsAround;
     private Boolean isFlagged;
     
-    public Celula(boolean isBomb, int row, int col){
-        this.isBomb = isBomb;
+    public Celula(int row, int col){
+        
         this.matrixPosition = new int[2];
         this.matrixPosition[0] = row;
         this.matrixPosition[1] = col;
         this.isFlagged = false;
-        this.isVazio = false;
+        
         
         
         

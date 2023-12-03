@@ -5,16 +5,18 @@
 package Interface;
 
 import Features.Click;
+import Features.Comunication;
 import Features.Field;
 import Features.FieldMaluco;
+import Features.FieldPai;
 import Features.Jogador;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -26,6 +28,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     Jogador Jogador2;
     Jogador currentJogador;
     JButton[][] botoes;
+    JLabel[] Jogadores;
     boolean flagger;
     
     public boolean isFlagger() {
@@ -38,6 +41,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         this.currentJogador = jogador1;
         this.botoes = new JButton[rows][cols];
         this.flagger = false;
+        this.Jogadores = new JLabel[2];
     }
     
     public void comutaJogador(){ // Troca de jogador ao clicar.
@@ -82,7 +86,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     }
     
     
-    public int checkType(Field field, int row, int col){
+    public int checkType(Field field, int row, int col, JLabel[] jogadores){
         
         Click clique = new Click(); // Cria uma instância para clique
         int TamanhoOld = field.lengthClicked();
@@ -91,10 +95,12 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         
         
         System.out.println("==========================TESTE==================");
-        System.out.println(field.getClicked_positions());
+        System.out.println(field.getClickedPositions());
         System.out.println("==========================TESTE==================");
-        ArrayList<ArrayList<Integer>> ListaClicados = field.getClicked_positions();
+        ArrayList<ArrayList<Integer>> ListaClicados = field.getClickedPositions();
         System.out.println(String.format("old click: %d   New_Click: %d", TamanhoOld, TamanhoNew));
+        aumentaPontuacaoTexto(jogadores, -TamanhoOld+TamanhoNew);
+        
         for(int i=TamanhoOld; i<TamanhoNew; i++){
             
             ArrayList<Integer> CurrentClicado = ListaClicados.get(i);
@@ -106,6 +112,15 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             NovoVazio.setText("");
             NovoVazio.setBackground(Color.green);
             NovoVazio.setEnabled(false);
+            
+            int TesteBombaProxima = field.CheckBombAround(CurrentClicado.get(0), CurrentClicado.get(1));
+            System.out.println(String.format("BOMBAS PROXIMAS EM [%d,%d] é %d", CurrentClicado.get(0),CurrentClicado.get(1),  TesteBombaProxima));
+            if(TesteBombaProxima>0){
+                System.out.println("TESTANDO AQUI");
+                NovoVazio.setText(String.valueOf(TesteBombaProxima));
+                NovoVazio.setBackground(Color.yellow);
+                NovoVazio.setEnabled(false);
+            }
         }
         // Se bomba, red. Se vazio, green. Se BombaProxima, Yellow
         if(field.getMatrix()[row][col].getIsBomb()){ 
@@ -121,8 +136,24 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         }
         
     }
-    
-    public int checkType(FieldMaluco field, int row, int col){
+    public void aumentaPontuacaoTexto(JLabel[] jogadores, int aumento){
+        JLabel current  = jogadores[this.currentJogador.getJogador()-1];
+       
+           String currentText =  current.getText();
+       String[] divisao =  currentText.split(" ");
+       String pontuacao = divisao[divisao.length -1];
+       Integer pontuacaoNumber = Integer.valueOf(pontuacao);
+       pontuacaoNumber =  pontuacaoNumber + aumento;
+       
+       current.setText(String.valueOf(String.format("Pontuação jogador %d: ", this.currentJogador.getJogador()) +pontuacaoNumber));
+        System.out.println(String.format("TESTE PONTUACAO =====%s", pontuacao));
+       
+       
+           
+       
+       
+    }
+    public int checkType(FieldMaluco field, int row, int col, JLabel[] jogadores){
         
         Click clique = new Click(); // Cria uma instância para clique
         int TamanhoOld = field.lengthClicked();
@@ -130,22 +161,37 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         int TamanhoNew = field.lengthClicked(); // Antes e depois do clique.. o quanto mudou
         
         
+        
+        
+        
         System.out.println("==========================TESTE==================");
-        System.out.println(field.getClicked_positions());
+        System.out.println(field.getClickedPositions());
         System.out.println("==========================TESTE==================");
-        ArrayList<ArrayList<Integer>> ListaClicados = field.getClicked_positions();
+        ArrayList<ArrayList<Integer>> ListaClicados = field.getClickedPositions();
         System.out.println(String.format("old click: %d   New_Click: %d", TamanhoOld, TamanhoNew));
+        aumentaPontuacaoTexto(jogadores, -TamanhoOld+TamanhoNew);
         for(int i=TamanhoOld; i<TamanhoNew; i++){
             
             ArrayList<Integer> CurrentClicado = ListaClicados.get(i);
             System.out.println(this.botoes[0][0]);
             System.out.println(String.format("nova pos: [%d, %d]", CurrentClicado.get(0), CurrentClicado.get(1)));
             System.out.println(CurrentClicado.get(0));
-           
+            
+            
             JButton  NovoVazio = this.botoes[CurrentClicado.get(0)][CurrentClicado.get(1)];
             NovoVazio.setText("");
             NovoVazio.setBackground(Color.green);
             NovoVazio.setEnabled(false);
+            int TesteBombaProxima = field.CheckBombAround(CurrentClicado.get(0), CurrentClicado.get(1));
+           
+            if(TesteBombaProxima>0){
+                System.out.println("TESTANDO AQUI");
+                NovoVazio.setText(String.valueOf(TesteBombaProxima));
+                NovoVazio.setBackground(Color.yellow);
+                NovoVazio.setEnabled(false);
+            }
+            
+            
         }
         // Se bomba, red. Se vazio, green. Se BombaProxima, Yellow
         if(field.getMatrix()[row][col].getIsBomb()){ 
@@ -161,9 +207,68 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         }
         
     }
+    public  void createJogadores(JPanel panel){
+        JLabel jogador1 = new JLabel("Pontuação jogador 1: 0");
+        JLabel jogador2 = new JLabel("Pontuação jogador 2: 0");
+        this.Jogadores[0] = jogador1;
+        this.Jogadores[1] = jogador2;
+        panel.add(jogador1);
+        panel.add(jogador2);
+        
+    }
     
+    public void gameOver(JFrame frame, FieldPai field, int rows, int cols, JLabel jogador1, JLabel jogador2){
+        activateAllBombs(field, rows, cols);
+        escolheVencedor(jogador1, jogador2);
+        
+        
+    }
+    
+    
+        public void activateAllBombs(FieldPai field, int rows, int cols){
+        for(int i=0; i<rows; i++){
+            for(int w = 0; w<cols; w++){
+               if(field.getMatrix()[i][w].getIsBomb()){
+                   this.botoes[i][w].setBackground(Color.red);
+                   this.botoes[i][w].setText("💣");
+               }
+                   this.botoes[i][w].setEnabled(false);
+            }
+            
+            
+            
+        }
+     
+    }
+        
+        public void escolheVencedor(JLabel jogador1, JLabel jogador2){
+            jogador2.setText("");
+            this.comutaJogador();
+            int pontuacao = this.currentJogador.getPontuacao();
+            
+            jogador1.setText(String.format("Jogador %d é o vencedor com %d pontos", this.currentJogador.getJogador(), pontuacao));
+            
+            
+            
+        }
+        
+        
+        public void botaoMenu(JPanel panelFlag, JFrame frame){
+            System.out.println("CHAMADA REALIZADA BOTAOMENU");
+            JButton botaomenu = new JButton("Main Menu");
+            botaomenu.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.dispose();
+                    Comunication.StartMenu();
+                }
+                
+            });
+            panelFlag.add(botaomenu);
+        }
+    }
     
     
 
     
-}
+

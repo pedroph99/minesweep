@@ -48,11 +48,14 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         this.width = width;
         this.height = height;
         this.field = field;
-        
-    
-       
-        
-        
+    }
+    public MainWindow(int rows, int cols, int width, int height, Field field, Jogador jogador1){
+        super(width, height, jogador1, rows, cols);
+        this.rows = rows;
+        this.cols = cols;
+        this.width = width;
+        this.height = height;
+        this.field = field;
     }
     @Override
     public  void createWin(){
@@ -86,7 +89,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
        
 
         // display it
-        frame2.setLayout(new GridLayout(3, 1));
+        frame2.setLayout(new GridLayout(3, 3));
         frame2.add(PainelMatriz);
         frame2.add(PainelAux);       
         createJogadores(PainelJogadores);

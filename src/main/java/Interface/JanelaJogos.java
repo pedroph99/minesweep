@@ -43,6 +43,14 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         this.flagger = false;
         this.Jogadores = new JLabel[2];
     }
+    public JanelaJogos(int width, int height, Jogador jogador1, int rows, int cols) {
+        super(width, height);
+        this.Jogador1 = jogador1;
+        this.currentJogador = jogador1;
+        this.botoes = new JButton[rows][cols];
+        this.flagger = false;
+        this.Jogadores = new JLabel[2];
+    }
     
     public void comutaJogador(){ // Troca de jogador ao clicar.
        

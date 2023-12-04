@@ -157,8 +157,4 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
             }
         }
     }
-    
-    
-
-    
 }

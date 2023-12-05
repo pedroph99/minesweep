@@ -101,22 +101,22 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
     private void createButton(Field field, JPanel frame,JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores, int fieldrows, int fieldcols){ // Cria botões e os registra em um array de JButtons.
         System.out.println("TESTANDO BOTOES");
         
-        JButton CurrentButton = new JButton();
-        this.botoes[row][col] = CurrentButton;
+        JButton currentButton = new JButton();
+        this.botoes[row][col] = currentButton;
         ActionListener acao = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isFlagger()){
-                    CurrentButton.setBackground(Color.pink);
-                    CurrentButton.setText("🚩");
-                    CurrentButton.setEnabled(false);
+                    currentButton.setBackground(Color.pink);
+                    currentButton.setText("🚩");
+                    currentButton.setEnabled(false);
                 }
                 else{
                     
                     
                 int checker = checkType(field, row, col, Jogadores);
                 if(checker == 10){
-                    CurrentButton.setBackground(Color.red);
+                    currentButton.setBackground(Color.red);
                     gameOver(frameJanela, field, fieldrows, fieldcols, jogadores[0], jogadores[1]);
                     botaoMenu(panelaux, frameJanela);
                     
@@ -124,28 +124,28 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
                 
                 
                 else if( checker == 0){
-                    CurrentButton.setBackground(Color.green);
+                    currentButton.setBackground(Color.green);
                 }
                 else{
-                    CurrentButton.setBackground(Color.yellow);
-                    CurrentButton.setText(String.format("%d", checker));
+                    currentButton.setBackground(Color.yellow);
+                    currentButton.setText(String.format("%d", checker));
                     
                 }
-                System.out.println(CurrentButton.getName());
+                System.out.println(currentButton.getName());
                 
-                CurrentButton.setEnabled(false); // Botão não pode ser mais clicado para evitar problemas.
+                currentButton.setEnabled(false); // Botão não pode ser mais clicado para evitar problemas.
                 
                 comutaJogador();
                  }}
         };
                 
-        CurrentButton.addActionListener(acao);
+        currentButton.addActionListener(acao);
                 
     
         
         
-        CurrentButton.setName(String.format("%d,%d", row, col)); // Informações para o botão. Identificador.
-        frame.add(CurrentButton);
+        currentButton.setName(String.format("%d,%d", row, col)); // Informações para o botão. Identificador.
+        frame.add(currentButton);
     }
     
     

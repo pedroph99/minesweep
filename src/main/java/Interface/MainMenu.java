@@ -11,8 +11,8 @@ import Features.Jogador;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.text.FlowView;
 
 /**
  *
@@ -22,25 +22,25 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
     public boolean gameStart = false;
     private int numDeJogadores = 1;
 
-    private int tamanhoTabuleiro = 18;
+    private static int tamanhoTabuleiro = 18;
     public MainMenu(int width, int height){
         super(width, height);
-        
-        
+
+
     }
 
     @Override
     public void createWin() {
         JFrame chooseGameFrame = new JFrame("Menu principal");
-        chooseGameFrame.setLayout(new GridLayout(1,2));
+        chooseGameFrame.setLayout(new FlowLayout());
         chooseGameFrame.setMinimumSize(new Dimension(this.width, this.height));
         chooseGameFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         chooseGameFrame.setLocationRelativeTo(null);
         criaBotaoGameTypes(chooseGameFrame, false);
         criaBotaoGameTypes(chooseGameFrame, true);
-        criaBotaoDifficulty(chooseGameFrame, 1);
-        //criaBotaoDifficulty(chooseGameFrame, 2);
-        //criaBotaoDifficulty(chooseGameFrame, 3);
+        criaCheckBoxDifficulty(chooseGameFrame, 1);
+        criaCheckBoxDifficulty(chooseGameFrame, 2);
+        criaCheckBoxDifficulty(chooseGameFrame, 3);
         chooseGameFrame.pack();
         chooseGameFrame.setVisible(true);
 
@@ -48,8 +48,8 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
     }
 
     public void criaBotaoGameTypes(JFrame frame, boolean maluco){
-        
         JButton currentBotao = new JButton("Campo Minado");
+        currentBotao.setPreferredSize(new Dimension(frame.getWidth()/2, frame.getHeight()/2));
         if(maluco){
             currentBotao.setText("Campo minado maluco ");
         }
@@ -57,54 +57,71 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(maluco){
-                    
+
                     startMalucoGame();
                 }
                 else{
                     startNormalGame();
                 }
-
-
                frame.dispose();
-                
+
             }
-            
+
         });
-        frame.add(currentBotao);
+        JPanel modesPanel = new JPanel();
+        modesPanel.setLayout(new GridLayout(1, 2));
+        modesPanel.add(currentBotao);
+        frame.add(modesPanel);
     }
 
-    public void criaBotaoDifficulty(JFrame frame, int difficulty){
+    public void criaCheckBoxDifficulty(JFrame frame, int difficulty) {
+        JCheckBox currentCheckBox = new JCheckBox("Facil");
 
-        JButton currentBotao = new JButton("Facil");
-        if(difficulty == 2){
-            currentBotao.setText("Medio");
+        if (difficulty == 2) {
+            currentCheckBox.setText("Medio");
         } else if (difficulty == 3) {
-            currentBotao.setText("Dificil");
+            currentCheckBox.setText("Dificil");
         }
-        currentBotao.addActionListener(new ActionListener(){
+
+        currentCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(difficulty == 3){
+                if (currentCheckBox.isSelected()) {
+                    // Set the selected difficulty
+                    if (difficulty == 3) {
+                        tamanhoTabuleiro = 27;
+                    } else if (difficulty == 2) {
+                        tamanhoTabuleiro = 18;
+                    } else {
+                        tamanhoTabuleiro = 9;
+                    }
 
-                    tamanhoTabuleiro = 27;
+                    // Deselect other checkboxes
+                    Component[] components = frame.getContentPane().getComponents();
+                    for (Component component : components) {
+                        if (component instanceof JPanel) {
+                            JPanel panel = (JPanel) component;
+                            for (Component innerComponent : panel.getComponents()) {
+                                if (innerComponent instanceof JCheckBox && innerComponent != currentCheckBox) {
+                                    ((JCheckBox) innerComponent).setSelected(false);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    // Handle deselection if needed
                 }
-                else if (difficulty == 2){
-                    tamanhoTabuleiro = 18;
-                }
-                else {
-                    tamanhoTabuleiro = 9;
-                }
-                currentBotao.setBackground(Color.green);
-
             }
-
         });
-        frame.add(currentBotao);
+
+        JPanel difficultyPanel = new JPanel();
+        difficultyPanel.setLayout(new FlowLayout());
+        difficultyPanel.add(currentCheckBox);
+        frame.add(difficultyPanel);
     }
 
-    
     public void startNormalGame(){ // Substitui o StartGame(), já que bugou.
-        
+
         Field teste_field = Comunication.StartField(tamanhoTabuleiro, tamanhoTabuleiro);
         Jogador player1 = new Jogador();
         player1.setJogador(1);
@@ -126,7 +143,7 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
 
     }
 
-    public int getTamanhoTabuleiro(){
+    public static int getTamanhoTabuleiro(){
         return tamanhoTabuleiro;
     }
 

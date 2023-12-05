@@ -126,14 +126,14 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
     
     public  void StartMaluco(){
         
-        FieldMaluco teste_field = Comunication.StartField(4, 4, 10);
+        FieldMaluco testeField = Comunication.StartField(4, 4, 10);
        
         Jogador player1 = new Jogador();
         player1.setJogador(1);
         
         Jogador player2 = new Jogador(); //Create objects jogador
         player2.setJogador(2); // set jogadores numero;
-        JanelaMaluca MainJanela = new JanelaMaluca(9,9,800,600, teste_field, player1, player2);
+        JanelaMaluca MainJanela = new JanelaMaluca(9,9,800,600, testeField, player1, player2);
         MainJanela.createWin();//Create mainWin to integrate with game
         
 

@@ -7,6 +7,8 @@ package Features;
 import Interface.MainMenu;
 import java.util.Scanner;
 import Interface.MainWindow;
+import com.sun.tools.javac.Main;
+
 /**
  *
  * @author Usuario
@@ -124,8 +126,10 @@ public  class Comunication {
     
     //StartField OVERLOAD!!
     public static Field StartField(int rows, int cols){
-        
-        Field teste_field = new Field(9,9,10);// create a 3x3 matrix field for debbuging porpuses
+
+        double bombNum = Math.pow(MainMenu.getTamanhoTabuleiro(), 2)*0.1;
+        int bombNumRound = (int) bombNum;
+        Field teste_field = new Field(MainMenu.getTamanhoTabuleiro(), MainMenu.getTamanhoTabuleiro(),bombNumRound);// create a 3x3 matrix field for debbuging porpuses
         teste_field.fillMatrix();
         teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
         teste_field.insertBombAround(teste_field.rows, teste_field.cols);

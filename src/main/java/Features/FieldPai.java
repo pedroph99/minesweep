@@ -111,6 +111,17 @@ public abstract  class FieldPai {
         return numBomb;
     }
     
+    public int bombGetter(){
+        return this.bombNumber;
+    }
+    
+    public boolean checkPositionBomb(int row, int col){
+        if((this.matrix[row][col].getIsBomb())){
+                        return true;
+                        
+                    }
+        return false;
+    }
     public void insertBombAround(int row, int col){
         
         for(int i = 0; i < row; i++) {

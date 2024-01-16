@@ -63,10 +63,16 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
                    checker = false;
                }
                
+               if(this.getMatrix()[currentPosicao[0]][currentPosicao[1]].getIsFlagged()){
+                   System.out.println(String.format("Tentou mudar flag em  [%d, %d]", currentPosicao[0], currentPosicao[1]));
+                   checker=false;
+               }
+               
                
            }
                    if(checker){
                        insertBombaMaluca(currentPosicao[0],currentPosicao[1]);
+                       
                    }
                    
                
@@ -87,6 +93,7 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
                 this.matrix[row][col] = new Vazio(row, col);
                 System.out.println(String.format("Mudou para vazio em [%d,%d]", row,col));
             }
+            this.bombNumber--;
         }
         else{
             System.out.println("======================TESTE BOMBA=================");
@@ -111,8 +118,12 @@ public class FieldMaluco extends FieldPai implements FieldInterface {
            
 
         }
-           System.out.println("======================TESTE BOMBA=================");
+           
+           this.bombNumber++;
+           
         }
+        System.out.println("=============================================Nova quantidade de bombas ========================= " + this.bombNumber);
+        
     }
     
     private int  CheckBombAroundMaluco(int row, int col){

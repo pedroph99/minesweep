@@ -7,6 +7,8 @@ package Features;
 import Interface.MainMenu;
 import java.util.Scanner;
 import Interface.MainWindow;
+import com.sun.tools.javac.Main;
+
 /**
  *
  * @author Usuario
@@ -21,7 +23,8 @@ public  class Comunication {
         
         Jogador player2 = new Jogador(); //Create objects jogador
         player2.setJogador(2); // set jogadores numero;
-        MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2);
+        
+        MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2, true);
         MainJanela.createWin();//Create mainWin to integrate with game
         teste_field.fillMatrix();
         teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
@@ -124,8 +127,10 @@ public  class Comunication {
     
     //StartField OVERLOAD!!
     public static Field StartField(int rows, int cols){
-        
-        Field teste_field = new Field(rows,cols,10);// create a 3x3 matrix field for debbuging porpuses
+
+        double bombNum = Math.pow(MainMenu.getTamanhoTabuleiro(), 2)*0.1;
+        int bombNumRound = (int) bombNum;
+        Field teste_field = new Field(MainMenu.getTamanhoTabuleiro(), MainMenu.getTamanhoTabuleiro(),bombNumRound);// create a 3x3 matrix field for debbuging porpuses
         teste_field.fillMatrix();
         teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
         teste_field.insertBombAround(teste_field.rows, teste_field.cols);

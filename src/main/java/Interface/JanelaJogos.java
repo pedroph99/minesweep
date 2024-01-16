@@ -28,9 +28,10 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     Jogador Jogador2;
     Jogador currentJogador;
     JButton[][] botoes;
+    
     JLabel[] Jogadores;
     boolean flagger;
-    
+    public int correctPos;
     public boolean isFlagger() {
         return flagger;
     }
@@ -43,10 +44,18 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         this.flagger = false;
         this.Jogadores = new JLabel[2];
     }
+    public JanelaJogos(int width, int height, Jogador jogador1, int rows, int cols) {
+        super(width, height);
+        this.Jogador1 = jogador1;
+        this.currentJogador = jogador1;
+        this.botoes = new JButton[rows][cols];
+        this.flagger = false;
+        this.Jogadores = new JLabel[2];
+    }
     
-    public void comutaJogador(){ // Troca de jogador ao clicar.
-       
-    if (this.currentJogador == this.Jogador1){
+    public void comutaJogador(boolean multiplayer){ // Troca de jogador ao clicar.
+    if(multiplayer){
+        if (this.currentJogador == this.Jogador1){
         System.out.println(String.format("Pontuação do jogador %d agora é %d", this.currentJogador.getJogador(), this.currentJogador.getPontuacao()));
         this.currentJogador = this.Jogador2;
         System.out.println(String.format("Jogador agora é o %d", this.currentJogador.getJogador()));
@@ -55,17 +64,23 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     else{
         this.currentJogador = this.Jogador1;
     }
+    }
+    
     
     
 }
     
-    public void criaBotaoFlag(JPanel panel){
+    public void criaBotaoFlag(JPanel panel, FieldPai field){
         JButton botaoFlag = new JButton("Flag");
+        
         botaoFlag.setName("true");
         botaoFlag.addActionListener(new ActionListener(){
          @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println(field.bombGetter());
+                
                 ComutaFlagger();
+                
         }
            
         });
@@ -78,13 +93,24 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         this.flagger = true;
         
         
+        
     }
     else{
         this.flagger = false;
     }
+        
+        comutaFlagButtons(this.flagger);
         System.out.println(this.flagger);
     }
-    
+    private void comutaFlagButtons(boolean state){
+        for(JButton[] botaoArray : this.botoes){
+            for(JButton botao : botaoArray){
+                if(botao.getText().equals("🚩")){
+                    botao.setEnabled(state);
+                }
+            }
+        }
+    }
     
     public int checkType(Field field, int row, int col, JLabel[] jogadores){
         
@@ -217,9 +243,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         
     }
     
-    public void gameOver(JFrame frame, FieldPai field, int rows, int cols, JLabel jogador1, JLabel jogador2){
+    public void gameOver(JFrame frame, FieldPai field, int rows, int cols, JLabel jogador1, JLabel jogador2, boolean multiplayer){
         activateAllBombs(field, rows, cols);
-        escolheVencedor(jogador1, jogador2);
+        escolheVencedor(jogador1, jogador2, multiplayer);
         
         
     }
@@ -241,11 +267,19 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
      
     }
         
-        public void escolheVencedor(JLabel jogador1, JLabel jogador2){
+        public void escolheVencedor(JLabel jogador1, JLabel jogador2, boolean multiplayer){
             jogador2.setText("");
-            this.comutaJogador();
+            this.comutaJogador(multiplayer);
             int pontuacao = this.currentJogador.getPontuacao();
             
+            jogador1.setText(String.format("Jogador %d é o vencedor com %d pontos", this.currentJogador.getJogador(), pontuacao));
+            
+            
+            
+        }
+        public void escolheVencedor(JLabel jogador1, JLabel jogador2, boolean multiplayer, boolean winByEndGame){
+            jogador2.setText("");
+            int pontuacao = this.currentJogador.getPontuacao();
             jogador1.setText(String.format("Jogador %d é o vencedor com %d pontos", this.currentJogador.getJogador(), pontuacao));
             
             
@@ -266,6 +300,27 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             });
             panelFlag.add(botaomenu);
         }
+        
+        public void increaseCorrectPos(){
+    this.correctPos++;
+            System.out.println(this.correctPos);
+
+    
+}
+    
+    public void decreaseCorrectPos(){
+        this.correctPos--;
+        System.out.println(this.correctPos);
+        System.out.println(this.correctPos);
+    }
+    
+    public void winTheGame(JFrame frame, FieldPai field,  JLabel jogador1, JLabel jogador2, boolean multiplayer ){
+        
+        escolheVencedor(jogador1, jogador2, multiplayer, true);
+    }
+   
+    
+        
     }
     
     

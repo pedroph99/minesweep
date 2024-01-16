@@ -4,6 +4,7 @@
  */
 package Features;
 
+import Exceções.PosicaoInvalida;
 import Interface.MainMenu;
 import java.util.Scanner;
 import Interface.MainWindow;
@@ -24,8 +25,8 @@ public  class Comunication {
         Jogador player2 = new Jogador(); //Create objects jogador
         player2.setJogador(2); // set jogadores numero;
         
-        MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2, true);
-        MainJanela.createWin();//Create mainWin to integrate with game
+        //MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2, true);
+        //MainJanela.createWin();//Create mainWin to integrate with game
         teste_field.fillMatrix();
         teste_field.fillBombs(); // Filling the Minesweeper matrix with bombs.
         teste_field.insertBombAround(teste_field.rows, teste_field.cols);
@@ -36,13 +37,37 @@ public  class Comunication {
         char StatusElemento;
         Scanner scanner = new Scanner(System.in);
         while(!game_over){
+            boolean checkerValid = false;
+         int coluna = 0;
+         int linha = 0;
+        while(!checkerValid){
             
-
-        System.out.print("Digite o número da coluna: ");
-        int coluna = scanner.nextInt();
-
-        System.out.print("Digite o número da linha: ");
-        int linha = scanner.nextInt(); // Scan row and column that will be clicked.
+            try{
+            System.out.print("Digite o número da coluna: ");
+            coluna = scanner.nextInt();
+            if(coluna <0 || coluna >= teste_field.cols){
+            throw new PosicaoInvalida("Coluna inválida");
+            
+            }
+            System.out.print("Digite o número da linha: ");
+            linha = scanner.nextInt(); // Scan row and column that will be clicked.
+            if(linha <0 || linha >= teste_field.rows){
+            throw new PosicaoInvalida("Linha inválida");
+            
+            }
+            
+            checkerValid = true;
+        }
+        catch(PosicaoInvalida e){
+            e.getMessage();
+        }
+            
+            
+            
+        }
+        
+        
+        
         
         
         

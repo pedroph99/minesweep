@@ -13,33 +13,8 @@ import java.util.ArrayList;
  */
 public class Click {
     
-    public char click(Celula cell, FieldMaluco field, Jogador currentJogador){
     
-    if(cell.getIsBomb()){
-            
-                System.out.println("BOOOOOOOOOM");
-                return 'b';
-            }
-            else{
-                if(!cell.getIsFlagged()){
-                    field.AddPosition(cell.getMatrixPosition()[0], cell.getMatrixPosition()[1]);
-                    ArrayList<ArrayList<Integer>> visitedPos = new ArrayList<ArrayList<Integer>>() ;
-                    checkVazio(cell, field, visitedPos, currentJogador);
-                   
-                    
-                    return 'a';
-                    
-                    }
-                else{
-                    
-                    System.out.println("Position flagged");
-                    
-                    return 'f';
-                }
-    }
-    
-    }
-    public  char click(Celula cell, Field field, Jogador currentJogador){
+    public  char click(Celula cell, FieldPai field, Jogador currentJogador){
         if(cell.getIsBomb()){
             
                 System.out.println("BOOOOOOOOOM");
@@ -47,7 +22,10 @@ public class Click {
             }
             else{
                 if(!cell.getIsFlagged()){
+                    if( !(field.getMatrix()[cell.getMatrixPosition()[0]][cell.getMatrixPosition()[1]].getIsVazio()) ){
                     field.AddPosition(cell.getMatrixPosition()[0], cell.getMatrixPosition()[1]);
+                    }
+                    
                     ArrayList<ArrayList<Integer>> visitedPos = new ArrayList<ArrayList<Integer>>() ;
                     checkVazio(cell, field, visitedPos, currentJogador);
                    
@@ -76,6 +54,7 @@ public class Click {
             if(!(field.matrix[row][col].getIsBomb())){
                 System.out.println(String.format("BOMBA_PROXIMA EM [%d,%d]", row,col));
             }
+           
             System.out.println("Testando aquiii ó");
             return;
         }
@@ -87,10 +66,11 @@ public class Click {
              System.out.println(String.format("adicionei a posicao [%d,%d]", row, col));
              if(checkPos(visitedPos, row, col)){
                  visitedPos.add(currentVisited);
+              
              }
              
              field.getClickedPositions().add(currentVisited);
-             currentJogador.aumentaPontuacao();
+             
              System.out.println(visitedPos);
         System.out.println("=======================TESTE EM RECURSAO=====================");
         for(int i = -1; i<2; i++){

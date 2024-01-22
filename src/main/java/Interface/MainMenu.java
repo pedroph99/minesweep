@@ -150,7 +150,6 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
 
     public void startNormalGame(){ // Substitui o StartGame(), já que bugou.
         boolean multiplayer = this.getValueMultiplayer();
-        System.out.println("TESTANDO MUTLIPLAYER" + multiplayer );
         Field teste_field = Comunication.StartField(tamanhoTabuleiro, tamanhoTabuleiro);
         Jogador player1 = new Jogador();
         player1.setJogador(1);

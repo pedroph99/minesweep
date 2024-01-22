@@ -115,6 +115,7 @@ public abstract  class FieldPai {
         return this.bombNumber;
     }
     
+    
     public boolean checkPositionBomb(int row, int col){
         if((this.matrix[row][col].getIsBomb())){
                         return true;
@@ -129,6 +130,7 @@ public abstract  class FieldPai {
                 int numBomb = CheckBombAround(i,j);
                 if(!(numBomb == 0)){
                     this.matrix[i][j] = new BombaProxima( i, j, numBomb);
+                    this.matrix[i][j].setBombAround(numBomb);
                 }
                 else {
                     if(!(this.matrix[i][j].getIsBomb())){
@@ -158,6 +160,14 @@ public abstract  class FieldPai {
     
     public void printClick(){
         System.out.println(clickedPositions);
+    }
+    
+    public int lengthClicked(){
+        return this.clickedPositions.size();
+    }
+    public int[] ClickedElement(int position){
+        int[] positions = {this.clickedPositions.get(position).get(0), this.clickedPositions.get(position).get(1)};
+        return positions;
     }
     
 }

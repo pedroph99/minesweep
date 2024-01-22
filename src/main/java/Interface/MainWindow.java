@@ -31,6 +31,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
     private Jogador Jogador2;
     private boolean flagger;
     private boolean multiplayer;
+    
     public int getRows() {
         return rows;
     }
@@ -51,6 +52,9 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         this.field = field;
         this.correctPos = 0;
         this.multiplayer = multiplayer;
+        this.currentJogador = jogador1;
+        this.flagsUsed = 0;
+        
     }
     public MainWindow(int rows, int cols, int width, int height, Field field, Jogador jogador1){
         super(width, height, jogador1, rows, cols);
@@ -60,6 +64,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         this.height = height;
         this.field = field;
         this.correctPos = 0;
+        
     }
     @Override
     public  void createWin(){
@@ -69,8 +74,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         JPanel PainelAux = new JPanel();
         JPanel PainelJogadores = new JPanel();
         
-        System.out.println("PEDRO TESTES");
-        
+
         
         
         // set frame site
@@ -81,29 +85,36 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
        
         PainelMatriz.setLayout(new GridLayout(this.rows, this.cols));
         PainelJogadores.setLayout(new GridLayout(1,2));
+        criaBotaoFlag(PainelAux, this.field);
+        
+        JLabel flagLabel = createFlag(PainelAux, this.field);
         for(int i=0; i<rows; i++){
             for(int w=0; w<cols; w++){
-                createButton(this.field, PainelMatriz, PainelAux, frame2, i, w, this.Jogadores, this.rows, this.cols );
+                createButton(this, this.field, PainelMatriz, PainelAux, frame2, i, w, this.Jogadores, this.rows, this.cols, flagLabel );
             }
             
         }
         
         // add JLabel to JFrame
-        criaBotaoFlag(PainelAux, this.field);
+        
        
 
         // display it
         frame2.setLayout(new GridLayout(3, 3));
         frame2.add(PainelMatriz);
-        frame2.add(PainelAux);       
+        frame2.add(PainelAux); 
+        
+        
         createJogadores(PainelJogadores);
+        
         frame2.add(PainelJogadores);
+        
         frame2.pack();
         frame2.setVisible(true);
     }
     
-    private void createButton(Field field, JPanel frame,JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores, int fieldrows, int fieldcols){ // Cria botões e os registra em um array de JButtons.
-        System.out.println("TESTANDO BOTOES");
+    private void createButton( MainWindow janela, Field field, JPanel frame,JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores,   int fieldrows, int fieldcols, JLabel flagLabel){ // Cria botões e os registra em um array de JButtons.
+
         
         JButton currentButton = new JButton();
         this.botoes[row][col] = currentButton;
@@ -111,30 +122,45 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isFlagger()){
+                    
+                    
                     String nameButton = currentButton.getName();
                         String[] splitted = nameButton.split(","); 
                         boolean teste = field.checkPositionBomb(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]) );
                     if(currentButton.getText().equals("🚩")){
-                        System.out.println("teste flagger22");
+
                         currentButton.setBackground(Color.lightGray);
                         currentButton.setText("");
                         currentButton.setEnabled(true);
+                        janela.flagsUsed--;
                         if(teste){
+                            janela.aumentaPontuacaoTexto(Jogadores, -100);
+                            currentJogador.aumentaPontuacao(-100);
+                            
                             decreaseCorrectPos();
                         }
+                        janela.mudaFlag(flagLabel);
                         return;
                         
                     }
                     else{
-                         currentButton.setBackground(Color.pink);
+                        if(-janela.flagsUsed  + field.bombGetter() != 0 ){
+                        currentButton.setBackground(Color.pink);
                          currentButton.setText("🚩");
+                         janela.flagsUsed++;
                          if(teste){
+                             janela.aumentaPontuacaoTexto(Jogadores, 100);
+                             
+                             currentJogador.aumentaPontuacao(100);
+                             
                              increaseCorrectPos();
                              checkVictory(frameJanela, field, jogadores[0], jogadores[1], multiplayer, panelaux);
                          }
                     }
-                    
+                         
+                    }
                    
+                   janela.mudaFlag(flagLabel);
                 }
                 else{
                     
@@ -154,9 +180,10 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
                 else{
                     currentButton.setBackground(Color.yellow);
                     currentButton.setText(String.format("%d", checker));
+                 
                     
                 }
-                System.out.println(currentButton.getName());
+       
                 
                 currentButton.setEnabled(false); // Botão não pode ser mais clicado para evitar problemas.
                 
@@ -190,7 +217,10 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         }
     }
     
-    
+    public void mudaFlag(JLabel labelFlag){
+        String texto = "Flags restantes: "+ Integer.toString(field.bombGetter() - this.flagsUsed);
+        labelFlag.setText(texto);
+    }
     
     
     

@@ -35,6 +35,8 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         this.field = field;
         this.correctPos = 0;
         this.multiplayer = multiplayer;
+        this.flagsUsed = 0;
+        
     }
     
 
@@ -61,9 +63,10 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
        
         PainelMatriz.setLayout(new GridLayout(this.rows, this.cols));
         PainelJogadores.setLayout(new GridLayout(1,2));
+        JLabel flagLabel = createFlag(PainelAux, this.field);
         for(int i=0; i<rows; i++){
             for(int w=0; w<cols; w++){
-                createButton(this.field, PainelMatriz, PainelAux, frame2, i, w, this.Jogadores, this.rows, this.cols, this.get_multiplayer() );
+                createButton(this, this.field, PainelMatriz, PainelAux, frame2, i, w, this.Jogadores, this.rows, this.cols, this.get_multiplayer(), flagLabel );
            
             }
             
@@ -79,17 +82,19 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         frame2.add(PainelAux);     
         createJogadores(PainelJogadores);
         frame2.add(PainelJogadores);
+
         frame2.pack();
         frame2.setVisible(true);
     }
 
     
-    public void createButton(FieldMaluco field, JPanel frame, JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores, int fieldrows, int fieldcols, boolean multiplayer ) {
+    public void createButton(JanelaMaluca janela, FieldMaluco field, JPanel frame, JPanel panelaux, JFrame frameJanela, int row, int col, JLabel[] jogadores, int fieldrows, int fieldcols, boolean multiplayer, JLabel flagLabel) {
     JButton CurrentButton = new JButton();
         this.botoes[row][col] = CurrentButton;
         CurrentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mudaFlag(flagLabel);
                 if(isFlagger()){
                     
                     String nameButton = CurrentButton.getName();
@@ -98,7 +103,8 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                     position.FlagSetter();
                     boolean teste = field.checkPositionBomb(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]) );
                     if(CurrentButton.getText().equals("🚩")){
-                        System.out.println("teste flagger22");
+                        janela.flagsUsed--;
+                        
                         
                         CurrentButton.setBackground(Color.LIGHT_GRAY);
                         CurrentButton.setText("");
@@ -106,11 +112,13 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                             decreaseCorrectPos();
                         }
                         
-                        
+                        janela.mudaFlag(flagLabel);
                         return;
                         
                     }
                     else{
+                         if(-janela.flagsUsed  + field.bombGetter() != 0 ){
+                          janela.flagsUsed++;
                           CurrentButton.setBackground(Color.pink);
                           CurrentButton.setText("🚩");
                           
@@ -120,13 +128,16 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                              increaseCorrectPos();
                              checkVictory(frameJanela, field, jogadores[0], jogadores[1], multiplayer, panelaux);
                          }
+                         
+                         }
                     }
                   
-                    
+                     janela.mudaFlag(flagLabel);
                 }
                 else{
                     
                 int checker = checkType(field, row, col, Jogadores);
+                
                 if(checker == 10){
                     CurrentButton.setBackground(Color.red);
 
@@ -185,10 +196,10 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
             
             int currentrow = this.field.getClickedPositions().get(i).get(0);
             int currentcol = this.field.getClickedPositions().get(i).get(1);
-            System.out.println(String.format("Checking [%d,%d]", currentrow,currentcol));
+           
             int bombas  = this.field.CheckBombAround(currentrow, currentcol);
             if(bombas>0){
-                System.out.println(String.format("Era pra mudar em [%d,%d]", currentrow,currentcol));
+
                 this.botoes[currentrow][currentcol].setBackground(Color.yellow);
                 this.botoes[currentrow][currentcol].setText(String.valueOf(bombas));
             }
@@ -197,6 +208,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                 this.botoes[currentrow][currentcol].setText("");
             }
         }
+        System.out.println(this.field.getClickedPositions());
     }
     
     
@@ -212,4 +224,11 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
             }
         }
     }
+
+        
+        public void mudaFlag(JLabel labelFlag){
+        String texto = "Flags restantes: "+ Integer.toString(field.bombGetter() - this.flagsUsed);
+        labelFlag.setText(texto);
+    }
+    
 }

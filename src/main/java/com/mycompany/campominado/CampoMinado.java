@@ -16,8 +16,8 @@ import Interface.JanelaMaluca;
 public class CampoMinado {
 
     public static void main(String[] args) {
-        //Comunication.StartMenu();
-        Comunication.StartGame();
+        Comunication.StartMenu();
+        //Comunication.StartGame();
         
     }
 }

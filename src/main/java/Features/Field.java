@@ -22,14 +22,8 @@ public class Field extends FieldPai implements FieldInterface {
 
     
     
-    public int lengthClicked(){
-        return this.clickedPositions.size();
-    }
    
-    public int[] ClickedElement(int position){
-        int[] positions = {this.clickedPositions.get(position).get(0), this.clickedPositions.get(position).get(1)};
-        return positions;
-    }
+    
 
     @Override
     public void setIsVazio(Boolean isVazio) {

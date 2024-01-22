@@ -32,6 +32,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     JLabel[] Jogadores;
     boolean flagger;
     public int correctPos;
+    public int flagsUsed;
     public boolean isFlagger() {
         return flagger;
     }
@@ -112,7 +113,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         }
     }
     
-    public int checkType(Field field, int row, int col, JLabel[] jogadores){
+    public int checkType(FieldPai field, int row, int col, JLabel[] jogadores){
         
         Click clique = new Click(); // Cria uma instância para clique
         int TamanhoOld = field.lengthClicked();
@@ -130,9 +131,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         for(int i=TamanhoOld; i<TamanhoNew; i++){
             
             ArrayList<Integer> CurrentClicado = ListaClicados.get(i);
-            System.out.println(this.botoes[0][0]);
-            System.out.println(String.format("nova pos: [%d, %d]", CurrentClicado.get(0), CurrentClicado.get(1)));
-            System.out.println(CurrentClicado.get(0));
+        
            
             JButton  NovoVazio = this.botoes[CurrentClicado.get(0)][CurrentClicado.get(1)];
             NovoVazio.setText("");
@@ -140,7 +139,6 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             NovoVazio.setEnabled(false);
             
             int TesteBombaProxima = field.CheckBombAround(CurrentClicado.get(0), CurrentClicado.get(1));
-            System.out.println(String.format("BOMBAS PROXIMAS EM [%d,%d] é %d", CurrentClicado.get(0),CurrentClicado.get(1),  TesteBombaProxima));
             if(TesteBombaProxima>0){
                 System.out.println("TESTANDO AQUI");
                 NovoVazio.setText(String.valueOf(TesteBombaProxima));
@@ -148,6 +146,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
                 NovoVazio.setEnabled(false);
             }
         }
+        currentJogador.aumentaPontuacao(TamanhoNew-TamanhoOld);
         // Se bomba, red. Se vazio, green. Se BombaProxima, Yellow
         if(field.getMatrix()[row][col].getIsBomb()){ 
             
@@ -157,7 +156,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             return 0;
         }
         else {
-            this.currentJogador.aumentaPontuacao();
+           
             return field.CheckBombAround(row, col);
         }
         
@@ -179,60 +178,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
        
        
     }
-    public int checkType(FieldMaluco field, int row, int col, JLabel[] jogadores){
-        
-        Click clique = new Click(); // Cria uma instância para clique
-        int TamanhoOld = field.lengthClicked();
-        clique.click(field.getMatrix()[row][col], field, this.currentJogador);
-        int TamanhoNew = field.lengthClicked(); // Antes e depois do clique.. o quanto mudou
-        
-        
-        
-        
-        
-        System.out.println("==========================TESTE==================");
-        System.out.println(field.getClickedPositions());
-        System.out.println("==========================TESTE==================");
-        ArrayList<ArrayList<Integer>> ListaClicados = field.getClickedPositions();
-        System.out.println(String.format("old click: %d   New_Click: %d", TamanhoOld, TamanhoNew));
-        aumentaPontuacaoTexto(jogadores, -TamanhoOld+TamanhoNew);
-        for(int i=TamanhoOld; i<TamanhoNew; i++){
-            
-            ArrayList<Integer> CurrentClicado = ListaClicados.get(i);
-            System.out.println(this.botoes[0][0]);
-            System.out.println(String.format("nova pos: [%d, %d]", CurrentClicado.get(0), CurrentClicado.get(1)));
-            System.out.println(CurrentClicado.get(0));
-            
-            
-            JButton  NovoVazio = this.botoes[CurrentClicado.get(0)][CurrentClicado.get(1)];
-            NovoVazio.setText("");
-            NovoVazio.setBackground(Color.green);
-            NovoVazio.setEnabled(false);
-            int TesteBombaProxima = field.CheckBombAround(CurrentClicado.get(0), CurrentClicado.get(1));
-           
-            if(TesteBombaProxima>0){
-                System.out.println("TESTANDO AQUI");
-                NovoVazio.setText(String.valueOf(TesteBombaProxima));
-                NovoVazio.setBackground(Color.yellow);
-                NovoVazio.setEnabled(false);
-            }
-            
-            
-        }
-        // Se bomba, red. Se vazio, green. Se BombaProxima, Yellow
-        if(field.getMatrix()[row][col].getIsBomb()){ 
-            
-            return 10;
-        }
-        else if( field.getMatrix()[row][col].getIsVazio()){
-            return 0;
-        }
-        else {
-            this.currentJogador.aumentaPontuacao();
-            return field.CheckBombAround(row, col);
-        }
-        
-    }
+    
     public  void createJogadores(JPanel panel){
         JLabel jogador1 = new JLabel("Pontuação jogador 1: 0");
         JLabel jogador2 = new JLabel("Pontuação jogador 2: 0");
@@ -241,6 +187,13 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         panel.add(jogador1);
         panel.add(jogador2);
         
+    }
+    
+    public JLabel createFlag(JPanel panel, FieldPai field){
+        String texto = "Flags restantes: "+ Integer.toString(field.bombGetter());
+        JLabel labelFlag= new JLabel(texto);
+        panel.add(labelFlag);
+        return labelFlag;
     }
     
     public void gameOver(JFrame frame, FieldPai field, int rows, int cols, JLabel jogador1, JLabel jogador2, boolean multiplayer){
@@ -288,7 +241,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         
         
         public void botaoMenu(JPanel panelFlag, JFrame frame){
-            System.out.println("CHAMADA REALIZADA BOTAOMENU");
+  
             JButton botaomenu = new JButton("Main Menu");
             botaomenu.addActionListener(new ActionListener(){
                 @Override
@@ -320,7 +273,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     }
    
     
-        
+    
     }
     
     

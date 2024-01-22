@@ -22,9 +22,20 @@ public class Jogador {
     public void aumentaPontuacao(){
         
         this.pontuacao = pontuacao +1;
-        System.out.println(String.format("PONTUAÇÃO AGORA É %d", this.pontuacao));
+        System.out.println(String.format("PONTUAÇÃO DE JOGADOR"+ this.jogador+ " AGORA É %d", this.pontuacao));
     }
-
+    
+    public void aumentaPontuacao(int pontuacao){
+        
+        this.pontuacao = this.pontuacao +pontuacao;
+        System.out.println(String.format("PONTUAÇÃO DE JOGADOR"+ this.jogador+ " AGORA É %d", this.pontuacao));
+    }
+    
+    
+    
+   
+    
+    
     public int getJogador() {
         return jogador;
     }

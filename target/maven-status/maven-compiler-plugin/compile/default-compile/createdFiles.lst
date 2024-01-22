@@ -2,11 +2,13 @@ Interface\JanelaPai.class
 Elementos\BombaProxima.class
 Features\FieldPai.class
 Interface\InterfaceJanelas.class
+Interface\MainMenu$2.class
 Elementos\Vazio.class
 Features\FieldInterface.class
 Interface\MainWindow.class
 Interface\JanelaMaluca$1.class
 Interface\JanelaJogos$2.class
+Features\TabuleiroTerminal.class
 Features\Click.class
 Interface\JanelaMaluca.class
 Interface\MainMenu$3.class
@@ -16,6 +18,7 @@ Features\FieldMaluco.class
 Interface\MainWindow$1.class
 Features\Comunication.class
 Features\Field.class
+Exceções\PosicaoInvalida.class
 Interface\MainMenu$1.class
 Features\Jogador.class
 Elementos\Celula.class

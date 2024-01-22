@@ -36,8 +36,11 @@ public abstract class Celula {
     public int getBombsAround() {
         return bombsAround;
     }
+    public void setBombAround(int numBomb){
+        this.bombsAround = numBomb;
+    }
     public int[] matrixPosition;
-    public int bombsAround;
+    private int bombsAround;
     private Boolean isFlagged;
     
     public Celula(int row, int col){

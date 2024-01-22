@@ -109,6 +109,9 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                         CurrentButton.setBackground(Color.LIGHT_GRAY);
                         CurrentButton.setText("");
                         if(teste){
+                            janela.aumentaPontuacaoTexto(Jogadores, -100);
+                             
+                             currentJogador.aumentaPontuacao(-100);
                             decreaseCorrectPos();
                         }
                         
@@ -125,6 +128,9 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                           
                           
                           if(teste){
+                             janela.aumentaPontuacaoTexto(Jogadores, 100);
+                             
+                             currentJogador.aumentaPontuacao(100);
                              increaseCorrectPos();
                              checkVictory(frameJanela, field, jogadores[0], jogadores[1], multiplayer, panelaux);
                          }

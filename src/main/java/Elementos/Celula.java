@@ -56,12 +56,14 @@ public abstract class Celula {
     }
     
     
-    public void FlagSetter(){
+    public boolean FlagSetter(){
         if(!this.isFlagged){
             this.isFlagged = true;
+            return true;
         }
         else{
             this.isFlagged = false;
+            return false;
         }
     }
 

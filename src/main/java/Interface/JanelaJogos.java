@@ -120,12 +120,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         clique.click(field.getMatrix()[row][col], field, this.currentJogador);
         int TamanhoNew = field.lengthClicked(); // Antes e depois do clique.. o quanto mudou
         
-        
-        System.out.println("==========================TESTE==================");
-        System.out.println(field.getClickedPositions());
-        System.out.println("==========================TESTE==================");
+    
         ArrayList<ArrayList<Integer>> ListaClicados = field.getClickedPositions();
-        System.out.println(String.format("old click: %d   New_Click: %d", TamanhoOld, TamanhoNew));
+      
         aumentaPontuacaoTexto(jogadores, -TamanhoOld+TamanhoNew);
         
         for(int i=TamanhoOld; i<TamanhoNew; i++){
@@ -140,7 +137,7 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
             
             int TesteBombaProxima = field.CheckBombAround(CurrentClicado.get(0), CurrentClicado.get(1));
             if(TesteBombaProxima>0){
-                System.out.println("TESTANDO AQUI");
+        
                 NovoVazio.setText(String.valueOf(TesteBombaProxima));
                 NovoVazio.setBackground(Color.yellow);
                 NovoVazio.setEnabled(false);

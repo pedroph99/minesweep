@@ -31,13 +31,9 @@ public  class Comunication {
         Jogador currentJogador = player1;
         //MainWindow MainJanela = new MainWindow(9,9,800,600, teste_field, player1, player2, true);
         //MainJanela.createWin();//Create mainWin to integrate with game
+        int correctPos = 0;
+        int flagUsada = 0;
         
-        
-        
-       
-    
-        
-       
         boolean game_over = false;
         Click click = new Click(); // Create the object so the player can perform the click.
         char StatusElemento;
@@ -96,7 +92,8 @@ public  class Comunication {
         
         
         boolean checker = false;
-        for(int i=0; i<teste_field.lengthClicked(); i++){
+        int beforeClicked = teste_field.lengthClicked();
+        for(int i=0; i<beforeClicked; i++){
             int[] current_position = teste_field.ClickedElement(i);
             if(linha == current_position[0] && coluna == current_position[1] ){
                 checker = true;
@@ -118,13 +115,32 @@ public  class Comunication {
                     System.out.println("Clicou em flag");
                 }
                 else{
-                    currentJogador.aumentaPontuacao();
+                
                     System.out.println("ok");
-                    teste_field.AddPosition(linha, coluna);
+                    
                 }
                 }
                 else{
-                  teste_field.getMatrix()[linha][coluna].FlagSetter();
+                  boolean newFlagValue = teste_field.getMatrix()[linha][coluna].FlagSetter();
+                  if(newFlagValue){
+                      if(teste_field.getMatrix()[linha][coluna].getIsBomb()){
+                          correctPos++;
+                          
+                      }
+                      flagUsada++;
+                  }
+                  else{
+                      if(teste_field.getMatrix()[linha][coluna].getIsBomb()){
+                          correctPos--;
+                          
+                      }
+                      flagUsada--;
+                      
+                  }
+                  if(correctPos == teste_field.bombNumber){
+                      System.out.println("Vitória de: jogador" + currentJogador.getJogador());
+                      game_over = true;
+                  }
                 }
                 
                  }
@@ -132,7 +148,9 @@ public  class Comunication {
                 System.out.println("Teste bug ");}
             
             showTable(teste_field);
-        
+            int afterClicked = teste_field.lengthClicked();
+            currentJogador.aumentaPontuacao(afterClicked-beforeClicked);
+            System.out.println(currentJogador.getPontuacao());
             
         if(currentJogador.getJogador() == 1){
             currentJogador = player2;
@@ -202,4 +220,8 @@ public  class Comunication {
                 return StartField(9,9);
         }
     }
+    
+    
 }
+
+

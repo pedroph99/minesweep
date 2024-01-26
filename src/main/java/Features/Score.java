@@ -45,7 +45,7 @@ public class Score {
 
     public static void sortScore(int score){
         LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy|HH:mm:ss");
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm_dd/MM/yyyy");
         String name = myDateObj.format(myFormatObj);
         System.out.println(name);
         try {
@@ -61,23 +61,31 @@ public class Score {
         }
         for(int i = 0; i < 10; i++){
             if(scoreList[i] == null || scoreList[i].equals("") || scoreList[i].equals("null")){
-                scoreList[i] = (name + " " + score);
+                scoreList[i] = (name + "  ➡  " + score);
                 break;
-            }else {
-                String[] aux = scoreList[i].split(" ");
+            }
+            else {
+                String[] aux = scoreList[i].split("  ➡  ");
                 if(score >= Integer.parseInt(aux[1])) {
-                    scoreList[i] = (name + " " + score);
+                    scoreList[i] = (name + "  ➡  " + score);
                     name = aux[0];
                     score = Integer.parseInt(aux[1]);
                 }
             }
+
         }
+        for (int j = 0; j < 10; j++){
+            if (scoreList[j].equals("null")){
+                scoreList[j] = "";
+            }
+        }
+
     }
 
     public static void printScore(JTextArea textArea) {
         try {
             Scanner sc = new Scanner(scoreFile);
-            textArea.append("Name  ->  Score\n");
+            textArea.append("            Name            💣   Score\n");
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
                 textArea.append(data + "\n");

@@ -41,15 +41,10 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
         chooseGameFrame.setMinimumSize(new Dimension(this.width, this.height));
         chooseGameFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         chooseGameFrame.setLocationRelativeTo(null);
-        
+
         
         criaBotaoGameTypes(chooseGameFrame, false);
         criaBotaoGameTypes(chooseGameFrame, true);
-        
-        criaCheckBoxDifficulty(chooseGameFrame, 1);
-        criaCheckBoxDifficulty(chooseGameFrame, 2);
-        criaCheckBoxDifficulty(chooseGameFrame, 3);
-
         JButton scoreButton = new JButton("Ver Pontuação");
         scoreButton.addActionListener(new ActionListener() {
             @Override
@@ -57,8 +52,11 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
                 showScoreWindow();
             }
         });
-
         chooseGameFrame.add(scoreButton);
+
+        criaCheckBoxDifficulty(chooseGameFrame, 1);
+        criaCheckBoxDifficulty(chooseGameFrame, 2);
+        criaCheckBoxDifficulty(chooseGameFrame, 3);
 
         criaCheckBoxMultiplayer(chooseGameFrame);
         chooseGameFrame.pack();

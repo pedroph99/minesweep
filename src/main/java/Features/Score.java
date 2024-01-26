@@ -1,17 +1,20 @@
 package Features;
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Score {
 
-    private String scoreFilePath = "playerScore.txt";
-    private File scoreFile = new File(scoreFilePath);
-    private String[] scoreList = new String[10];
+    private static String scoreFilePath = "./scoreFileFolder/playerScore.txt";
+    private static File scoreFile = new File(scoreFilePath);
+    private static String[] scoreList = new String[10];
 
-    public void createScoreFile(){
+    public static void createScoreFile(){
         try{
             if(scoreFile.createNewFile()){
                 System.out.println("File created: " + scoreFile.getName());
@@ -25,7 +28,7 @@ public class Score {
         }
     }
 
-    public void saveScore(){
+    public static void saveScore(){
         try {
             FileWriter writeScore = new FileWriter(scoreFilePath);
             for(String score : scoreList){
@@ -40,10 +43,14 @@ public class Score {
         }
     }
 
-    public void sortScore(String name, int score){
+    public static void sortScore(int score){
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy|HH:mm:ss");
+        String name = myDateObj.format(myFormatObj);
+        System.out.println(name);
         try {
             Scanner sc = new Scanner(scoreFile);
-            for (int i = 0; i < 10 || sc.hasNextLine(); i++){
+            for (int i = 0;sc.hasNextLine(); i++){
                 scoreList[i] = sc.nextLine();
             }
             sc.close();
@@ -53,7 +60,7 @@ public class Score {
             e.printStackTrace();
         }
         for(int i = 0; i < 10; i++){
-            if(scoreList[i] == null || scoreList[i].equals("")){
+            if(scoreList[i] == null || scoreList[i].equals("") || scoreList[i].equals("null")){
                 scoreList[i] = (name + " " + score);
                 break;
             }else {
@@ -67,16 +74,15 @@ public class Score {
         }
     }
 
-    public void printScore(){
+    public static void printScore(JTextArea textArea) {
         try {
             Scanner sc = new Scanner(scoreFile);
-            System.out.println("Name  ->  Score");
+            textArea.append("Name  ->  Score\n");
             while (sc.hasNextLine()) {
                 String data = sc.nextLine();
-                System.out.println(data);
+                textArea.append(data + "\n");
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }

@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.text.FlowView;
 
+import static Features.Score.printScore;
+
 /**
  *
  * @author Usuario
@@ -47,7 +49,17 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
         criaCheckBoxDifficulty(chooseGameFrame, 1);
         criaCheckBoxDifficulty(chooseGameFrame, 2);
         criaCheckBoxDifficulty(chooseGameFrame, 3);
-        
+
+        JButton scoreButton = new JButton("Ver Pontuação");
+        scoreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showScoreWindow();
+            }
+        });
+
+        chooseGameFrame.add(scoreButton);
+
         criaCheckBoxMultiplayer(chooseGameFrame);
         chooseGameFrame.pack();
         chooseGameFrame.setVisible(true);
@@ -200,5 +212,25 @@ public class MainMenu extends JanelaPai implements InterfaceJanelas{
             this.multiplayer = true;
         }
     }
+
+    public void showScoreWindow() {
+        JFrame scoreFrame = new JFrame("Pontuação dos Jogadores");
+        scoreFrame.setLayout(new BorderLayout());
+
+        JTextArea scoreTextArea = new JTextArea();
+        scoreTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(scoreTextArea);
+
+        // Chama a função printScore para obter os dados
+        printScore(scoreTextArea);
+
+        scoreFrame.add(scrollPane, BorderLayout.CENTER);
+
+        scoreFrame.setSize(300, 200);
+        scoreFrame.setLocationRelativeTo(null);
+        scoreFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        scoreFrame.setVisible(true);
+    }
+
 
 }

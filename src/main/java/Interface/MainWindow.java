@@ -1,10 +1,8 @@
 package Interface;
 
 
-import Features.Click;
-import Features.Field;
-import Features.FieldPai;
-import Features.Jogador;
+import Features.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -207,6 +205,9 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
     public void checkVictory(JFrame frame, FieldPai field,  JLabel jogador1, JLabel jogador2, boolean multiplayer, JPanel panelaux){
         if (this.correctPos == this.field.bombGetter()){
             System.out.println("Vitória!!!!!!!!!!!!!!!");
+            System.out.println(currentJogador.getPontuacao());
+            Score.sortScore(currentJogador.getPontuacao());
+            Score.saveScore();
             winTheGame(frame, field,  jogador1, jogador2, multiplayer);
             botaoMenu(panelaux, frame);
             for(JButton[] botoesRow: this.botoes){

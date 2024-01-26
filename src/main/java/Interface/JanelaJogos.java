@@ -4,12 +4,8 @@
  */
 package Interface;
 
-import Features.Click;
-import Features.Comunication;
-import Features.Field;
-import Features.FieldMaluco;
-import Features.FieldPai;
-import Features.Jogador;
+import Features.*;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -196,7 +192,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     public void gameOver(JFrame frame, FieldPai field, int rows, int cols, JLabel jogador1, JLabel jogador2, boolean multiplayer){
         activateAllBombs(field, rows, cols);
         escolheVencedor(jogador1, jogador2, multiplayer);
-        
+        System.out.println(currentJogador.getPontuacao());
+        Score.sortScore(currentJogador.getPontuacao());
+        Score.saveScore();
         
     }
     

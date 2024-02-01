@@ -9,6 +9,7 @@ import Features.Comunication;
 import Features.FieldMaluco;
 import Features.FieldPai;
 import Features.Jogador;
+import Features.Score;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -80,7 +81,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         frame2.setLayout(new GridLayout(3, 1));
         frame2.add(PainelMatriz);
         frame2.add(PainelAux);     
-        createJogadores(PainelJogadores);
+        createJogadores(PainelJogadores, this.multiplayer);
         frame2.add(PainelJogadores);
 
         frame2.pack();
@@ -109,9 +110,9 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                         CurrentButton.setBackground(Color.LIGHT_GRAY);
                         CurrentButton.setText("");
                         if(teste){
-                            janela.aumentaPontuacaoTexto(Jogadores, -100);
+                            janela.aumentaPontuacaoTexto(Jogadores, -50);
                              
-                             currentJogador.aumentaPontuacao(-100);
+                             currentJogador.aumentaPontuacao(-50);
                             decreaseCorrectPos();
                         }
                         
@@ -128,9 +129,9 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
                           
                           
                           if(teste){
-                             janela.aumentaPontuacaoTexto(Jogadores, 100);
+                             janela.aumentaPontuacaoTexto(Jogadores, 50);
                              
-                             currentJogador.aumentaPontuacao(100);
+                             currentJogador.aumentaPontuacao(50);
                              increaseCorrectPos();
                              checkVictory(frameJanela, field, jogadores[0], jogadores[1], multiplayer, panelaux);
                          }
@@ -180,7 +181,7 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
     
     public  void StartMaluco(){
         
-        FieldMaluco testeField = Comunication.StartField(4, 4, 10);
+        FieldMaluco testeField = Comunication.StartField(9, 9, 10);
        
         Jogador player1 = new Jogador();
         player1.setJogador(1);
@@ -221,6 +222,11 @@ public class JanelaMaluca extends JanelaJogos implements InterfaceJanelas {
         public void checkVictory(JFrame frame, FieldPai field,  JLabel jogador1, JLabel jogador2, boolean multiplayer, JPanel panelaux){
         if (this.correctPos == this.field.bombGetter()){
             System.out.println("Vitória!!!!!!!!!!!!!!!");
+            Jogador winner  = comparaPontuacao(this.multiplayer);
+            System.out.println(winner.getPontuacao());
+            Score.sortScore(winner.getPontuacao());
+            Score.saveScore();
+            winTheGame(frame, field,  jogador1, jogador2, multiplayer);
             winTheGame(frame, field,  jogador1, jogador2, multiplayer);
             botaoMenu(panelaux, frame);
             for(JButton[] botoesRow: this.botoes){

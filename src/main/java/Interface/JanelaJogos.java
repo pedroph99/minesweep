@@ -4,12 +4,8 @@
  */
 package Interface;
 
-import Features.Click;
-import Features.Comunication;
-import Features.Field;
-import Features.FieldMaluco;
-import Features.FieldPai;
-import Features.Jogador;
+import Features.*;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -176,9 +172,13 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
        
     }
     
-    public  void createJogadores(JPanel panel){
+    public  void createJogadores(JPanel panel, boolean multiplayer){
         JLabel jogador1 = new JLabel("Pontuação jogador 1: 0");
-        JLabel jogador2 = new JLabel("Pontuação jogador 2: 0");
+        
+        JLabel jogador2 = new JLabel("");
+        if(multiplayer){
+            jogador2.setText("Pontuação jogador 1: 0");
+        }
         this.Jogadores[0] = jogador1;
         this.Jogadores[1] = jogador2;
         panel.add(jogador1);
@@ -196,7 +196,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
     public void gameOver(JFrame frame, FieldPai field, int rows, int cols, JLabel jogador1, JLabel jogador2, boolean multiplayer){
         activateAllBombs(field, rows, cols);
         escolheVencedor(jogador1, jogador2, multiplayer);
-        
+        System.out.println(currentJogador.getPontuacao());
+        Score.sortScore(currentJogador.getPontuacao());
+        Score.saveScore();
         
     }
     
@@ -229,8 +231,9 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         }
         public void escolheVencedor(JLabel jogador1, JLabel jogador2, boolean multiplayer, boolean winByEndGame){
             jogador2.setText("");
-            int pontuacao = this.currentJogador.getPontuacao();
-            jogador1.setText(String.format("Jogador %d é o vencedor com %d pontos", this.currentJogador.getJogador(), pontuacao));
+            Jogador winner  = comparaPontuacao(multiplayer);
+            int pontuacao = winner.getPontuacao();
+            jogador1.setText(String.format("Jogador %d é o vencedor com %d pontos", winner.getJogador(), pontuacao));
             
             
             
@@ -268,7 +271,17 @@ public abstract  class JanelaJogos extends JanelaPai implements InterfaceJanelas
         
         escolheVencedor(jogador1, jogador2, multiplayer, true);
     }
-   
+   public Jogador comparaPontuacao(boolean multiplayer){
+        if (!multiplayer){
+            return this.currentJogador;
+        }
+        if (this.Jogador1.getPontuacao() > this.Jogador2.getPontuacao()){
+            return this.Jogador1;
+        }
+        else{
+            return this.Jogador2;
+        }
+    }
     
     
     }

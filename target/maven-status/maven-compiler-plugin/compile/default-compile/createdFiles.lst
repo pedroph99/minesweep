@@ -21,6 +21,7 @@ Features\Field.class
 Exceções\PosicaoInvalida.class
 Interface\MainMenu$1.class
 Features\Jogador.class
+Interface\MainMenu$4.class
 Elementos\Celula.class
 Interface\JanelaJogos$1.class
 Features\Score.class

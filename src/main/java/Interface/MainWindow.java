@@ -1,10 +1,8 @@
 package Interface;
 
 
-import Features.Click;
-import Features.Field;
-import Features.FieldPai;
-import Features.Jogador;
+import Features.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,9 +24,6 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
     
     private int rows;
     private Field field;
-    private Jogador currentJogador;
-    private Jogador Jogador1;
-    private Jogador Jogador2;
     private boolean flagger;
     private boolean multiplayer;
     
@@ -70,6 +65,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
     public  void createWin(){
         
         JFrame frame2 = new JFrame("Campo minado");
+        frame2.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         JPanel PainelMatriz = new JPanel();
         JPanel PainelAux = new JPanel();
         JPanel PainelJogadores = new JPanel();
@@ -84,6 +80,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         // center the JLabel
        
         PainelMatriz.setLayout(new GridLayout(this.rows, this.cols));
+       
         PainelJogadores.setLayout(new GridLayout(1,2));
         criaBotaoFlag(PainelAux, this.field);
         
@@ -105,7 +102,7 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         frame2.add(PainelAux); 
         
         
-        createJogadores(PainelJogadores);
+        createJogadores(PainelJogadores, this.multiplayer);
         
         frame2.add(PainelJogadores);
         
@@ -134,8 +131,8 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
                         currentButton.setEnabled(true);
                         janela.flagsUsed--;
                         if(teste){
-                            janela.aumentaPontuacaoTexto(Jogadores, -100);
-                            currentJogador.aumentaPontuacao(-100);
+                            janela.aumentaPontuacaoTexto(Jogadores, -50);
+                            currentJogador.aumentaPontuacao(-50);
                             
                             decreaseCorrectPos();
                         }
@@ -149,9 +146,9 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
                          currentButton.setText("🚩");
                          janela.flagsUsed++;
                          if(teste){
-                             janela.aumentaPontuacaoTexto(Jogadores, 100);
+                             janela.aumentaPontuacaoTexto(Jogadores, 50);
                              
-                             currentJogador.aumentaPontuacao(100);
+                             currentJogador.aumentaPontuacao(50);
                              
                              increaseCorrectPos();
                              checkVictory(frameJanela, field, jogadores[0], jogadores[1], multiplayer, panelaux);
@@ -201,12 +198,17 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         
         
         currentButton.setName(String.format("%d,%d", row, col)); // Informações para o botão. Identificador.
+        currentButton.setSize(40, 40);
         frame.add(currentButton);
     }
     
     public void checkVictory(JFrame frame, FieldPai field,  JLabel jogador1, JLabel jogador2, boolean multiplayer, JPanel panelaux){
         if (this.correctPos == this.field.bombGetter()){
             System.out.println("Vitória!!!!!!!!!!!!!!!");
+            Jogador winner  = comparaPontuacao(this.multiplayer);
+            System.out.println(winner.getPontuacao());
+            Score.sortScore(winner.getPontuacao());
+            Score.saveScore();
             winTheGame(frame, field,  jogador1, jogador2, multiplayer);
             botaoMenu(panelaux, frame);
             for(JButton[] botoesRow: this.botoes){
@@ -221,6 +223,8 @@ public class MainWindow extends JanelaJogos implements InterfaceJanelas {
         String texto = "Flags restantes: "+ Integer.toString(field.bombGetter() - this.flagsUsed);
         labelFlag.setText(texto);
     }
+    
+    
     
     
     

@@ -185,8 +185,9 @@ public  class Comunication {
     }
     
     public static FieldMaluco StartField(int rows, int cols, int  maluquisse){
-
-        FieldMaluco field = new FieldMaluco(rows,cols,13,maluquisse);
+        double bombNum = Math.pow(rows, 2)*0.1;
+        int bombNumRound = (int) bombNum;
+        FieldMaluco field = new FieldMaluco(rows,cols,bombNumRound,maluquisse);
         field.fillMatrix();
         field.fillBombs(); // Filling the Minesweeper matrix with bombs.
         

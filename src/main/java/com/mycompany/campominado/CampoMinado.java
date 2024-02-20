@@ -20,6 +20,6 @@ public class CampoMinado {
         Comunication.StartMenu();
         Score.createScoreFile();
         //Comunication.StartGame();//Versao do Jogo no Terminal
-        
+            
     }
 }
